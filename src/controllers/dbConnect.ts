@@ -38,4 +38,5 @@ pool.getConnection((err, connection) => {
 // Promisify for Node.js async/await.
 pool.query = util.promisify(pool.query)
 
-export default pool
+module.exports = pool
+export {};

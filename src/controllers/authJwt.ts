@@ -25,3 +25,4 @@ let verifyToken = (req, res, next) => {
   };
   
   export default authJwt;
+  export {};

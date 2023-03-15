@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express"
 import { DataAPI } from '../controllers/getDataAPI'
-const authJwt = require ('../controllers/authJwt')
+import  authJwt  from '../controllers/authJwt'
 
 // api routes
 export class Data {
@@ -10,6 +10,6 @@ export class Data {
 
     public routes(app:any): void {
         app.route(this.apiPath + "/test")
-            .post( this.dataApi.postTest)
+            .post(authJwt.verifyToken, this.dataApi.postTest)
     }
 }
