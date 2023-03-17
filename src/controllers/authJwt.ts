@@ -4,8 +4,8 @@ const dotenv = require('dotenv')
 dotenv.config({ path: './.env'})
 
 // verify token
-let verifyToken = (req, res, next) => {
-    let token = req.headers["x-access-token"];
+const verifyToken = (req, res, next) => {
+    const token = req.headers["x-access-token"];
   
     if (!token) {
         return res.status(403).send({ message: "No token provided!" });
@@ -20,9 +20,5 @@ let verifyToken = (req, res, next) => {
     });
   };
 
-  const authJwt = {
-    verifyToken: verifyToken
-  };
   
-  export default authJwt;
-  export {};
+  export default {verifyToken}

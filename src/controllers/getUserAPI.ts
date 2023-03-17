@@ -1,5 +1,5 @@
 import {Request, Response, NextFunction} from 'express'
-const pool = require('./dbConnect')
+import  dbConnect  from '../controllers/dbConnect'
 const $sql = require ('./queries')
 
 const dotenv = require('dotenv')
@@ -56,13 +56,13 @@ export class UserAPI {
             const checkEmailFomat = await checkEmailFormat(email)
 
             // check if user already exists
-            const exists = await pool.query($sql.queries.userExists, [email])
+            const exists = await dbConnect.pool.query($sql.queries.userExists, [email])
             if(exists[0].count > 0){
                 throw "Email already exists."
             }        
 
             // add into db
-            await pool.query($sql.queries.addUser, [email, password]);
+            await dbConnect.pool.query($sql.queries.addUser, [email, password]);
 
             // return success msg
             res.statusCode = 201;
@@ -85,13 +85,13 @@ export class UserAPI {
 
         try{
             // check if user already exists
-            const exists = await pool.query($sql.queries.userExists, [email])
+            const exists = await dbConnect.pool.query($sql.queries.userExists, [email])
             if(exists[0].count == 0){
                 throw "Email does not exists."
             }
 
             // get account info and compare hashed pass
-            const getUser = await pool.query($sql.queries.getUser, [email])
+            const getUser = await dbConnect.pool.query($sql.queries.getUser, [email])
             await checkPassword(password, getUser[0].password)
 
             // generate access token

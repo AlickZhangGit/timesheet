@@ -1,5 +1,5 @@
 import {Request, Response, NextFunction} from 'express'
-const pool = require('./dbConnect')
+import  dbConnect  from '../controllers/dbConnect'
 const $sql = require ('./queries')
 
 
@@ -21,11 +21,9 @@ let resError = (res: any, err: any, msg: any) => {
 export class DataAPI {
     async postTest(req: Request, res: Response){
         let id = req.query.id;
-        console.log('in da')
 
         // do the query
-        pool.query('SELECT * FROM users WHERE id = ?', [id], function (err, result) {
-            console.log(result)
+        dbConnect.pool.query('SELECT * FROM users WHERE id = ?', [id], function (err, result) {
 
             // return if query error
             if (err) {
