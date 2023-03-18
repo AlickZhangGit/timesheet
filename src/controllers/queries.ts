@@ -1,6 +1,6 @@
 export const queries = {
-    test: 'SELECT * FROM users WHERE id = ?;',
-    userExists: 'Select COUNT(1) as count FROM users WHERE email = ?;',
-    addUser: 'INSERT INTO timesheet.users (email,password) VALUES (?, ?);',
-    getUser: 'Select email, password FROM users WHERE email = ?'
+    test: 'SELECT * FROM timesheet.users WHERE id = $1;',
+    userExists: 'Select COUNT(1) as count FROM timesheet.users WHERE email = $1;',
+    addUser: 'INSERT INTO timesheet.users (email,password) VALUES ($1, $2);',
+    getUser: 'Select email, password FROM timesheet.users WHERE email = $1'
 }

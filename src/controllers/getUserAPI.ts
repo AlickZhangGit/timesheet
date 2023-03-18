@@ -57,7 +57,7 @@ export class UserAPI {
 
             // check if user already exists
             const exists = await dbConnect.pool.query($sql.queries.userExists, [email])
-            if(exists[0].count > 0){
+            if(exists.rows[0].count > 0){
                 throw "Email already exists."
             }        
 
@@ -84,15 +84,16 @@ export class UserAPI {
         let password = req.query.password
 
         try{
+
             // check if user already exists
             const exists = await dbConnect.pool.query($sql.queries.userExists, [email])
-            if(exists[0].count == 0){
+            if(exists.rows[0] == 0){
                 throw "Email does not exists."
             }
 
             // get account info and compare hashed pass
             const getUser = await dbConnect.pool.query($sql.queries.getUser, [email])
-            await checkPassword(password, getUser[0].password)
+            await checkPassword(password, getUser.rows[0].password)
 
             // generate access token
             const token = await jwt.sign({ id: email }, process.env.ACCOUNT_HASH, {

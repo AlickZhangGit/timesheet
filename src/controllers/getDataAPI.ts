@@ -8,11 +8,11 @@ dotenv.config({ path: './.env'})
 
 
 // display error on error, use msg to pinpoint which function failed
-let resError = (res: any, err: any, msg: any) => {
+let resError = (res: any, err: any, statusCode=501) => {
     res.setHeader('Content-Type', 'application/json');
-    res.statusCode = 500;
+    res.statusCode = statusCode;
     res.send({
-        status: 'Error: '.concat(msg),
+        status: err,
         code: err.code
     });
 }
@@ -22,23 +22,20 @@ export class DataAPI {
     async postTest(req: Request, res: Response){
         let id = req.query.id;
 
-        // do the query
-        dbConnect.pool.query('SELECT * FROM users WHERE id = ?', [id], function (err, result) {
+        try {
 
-            // return if query error
-            if (err) {
-                console.error(err);
-                resError(res, err, 'postLogin');
+            // do the query
+            const results = await dbConnect.pool.query($sql.queries.test, [id])
 
-            // return on success
-            } else {
-                res.statusCode = 201;
-                res.send({
-                    success: true,
-                    status: 201,
-                    message: result
-                });
-            }
-        });
+            res.statusCode = 201;
+            res.send({
+                success: true,
+                status: 201,
+                message: results.rows
+            });
+
+        } catch(err){
+            resError(res, err);
+        }
     }
 }
