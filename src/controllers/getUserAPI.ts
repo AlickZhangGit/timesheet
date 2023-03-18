@@ -87,7 +87,7 @@ export class UserAPI {
 
             // check if user already exists
             const exists = await dbConnect.pool.query($sql.queries.userExists, [email])
-            if(exists.rows[0] == 0){
+            if(exists.rows[0].count == 0){
                 throw "Email does not exists."
             }
 
