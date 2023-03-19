@@ -6,14 +6,17 @@ import cors from "cors"
 
 import { Data } from './routes/dataRoutes';
 import { User } from './routes/userRoutes';
+import { Front } from './routes/frontRoutes';
 
 import dotenv from 'dotenv'
+
 dotenv.config({ path: './.env'})
 
 class App {
     public app: express.Application;
     public routeData: Data = new Data();
     public routeUser: User = new User();
+    public routeFront: Front = new Front();
 
     constructor() {
         this.app = express()
@@ -40,6 +43,7 @@ class App {
 
         this.routeData.routes(this.app);
         this.routeUser.routes(this.app);
+        this.routeFront.routes(this.app);
     }
 }
 
