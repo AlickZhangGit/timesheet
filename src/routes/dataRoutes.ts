@@ -12,8 +12,8 @@ export class Data {
         app.route(this.apiPath + "/test")
             .get(authJwt.verifyToken, this.dataApi.getTest)
         app.route(this.apiPath + "/inserttimes")
-            .post(this.dataApi.postTimesData)
+            .post(authJwt.verifyToken, this.dataApi.postTimesData)
         app.route(this.apiPath + "/gettimesbymonth")
-            .get(this.dataApi.getTimesByMonth)
+            .get(authJwt.verifyToken, this.dataApi.getTimesByMonth)
     }
 }
