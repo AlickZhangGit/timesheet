@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "src/server.ts",
+  "type": "module",
   "dependencies": {
     "@types/express-session": "^1.17.6",
     "@viselect/react": "^3.2.5",
