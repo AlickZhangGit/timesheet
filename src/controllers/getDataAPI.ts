@@ -40,7 +40,9 @@ function jsonToList(jsonData){
 
 export class DataAPI {
     async getTest(req: Request, res: Response){
-        const email = req.session.email;
+        const registerJson = req.body;
+        const email = registerJson.email
+        const password = registerJson.password
 
         try {
 

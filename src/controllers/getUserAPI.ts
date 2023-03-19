@@ -9,6 +9,11 @@ dotenv.config({ path: './.env'})
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 
+interface registerData {
+    email: string;
+    password: string;
+}
+
 // display error on error, use msg to pinpoint which function failed
 const resError = (res: any, err: any, statusCode=501) => {
     res.setHeader('Content-Type', 'application/json');
@@ -31,6 +36,18 @@ function checkEmailFormat(email){
     })
 }
 
+// check password format
+function checkPasswordFormat(password){
+    const validPasswordRegex = /^[a-zA-Z0-9]+$/
+    return new Promise((resolve, reject)=>{
+        if (validPasswordRegex.test(password)){
+            resolve(true)
+        } else {
+            reject('Invalid password format, only numbers and letters allowed, no spaces or special characters')
+        }
+    })
+}
+
 // check password against hash
 function checkPassword(password, hash){
     return new Promise((resolve, reject)=>{
@@ -47,9 +64,10 @@ function checkPassword(password, hash){
 export class UserAPI {
 
     // register call
-    async register(req: Request<{}, {}, {}, {email: string, password: string}, Session>, res: Response){
-        const email = req.query.email;
-        const password = bcrypt.hashSync(req.query.password, 8)
+    async register(req: Request, res: Response){
+        const registerJson = req.body as { email: string, password: string };
+        const email = registerJson.email
+        const password = bcrypt.hashSync(registerJson.password, 8)
 
         // check field
         try{
@@ -65,6 +83,9 @@ export class UserAPI {
             // add into db
             await dbConnect.pool.query($sql.queries.addUser, [email, password]);
 
+            // set session variable
+            req.session.email = email;
+
             // return success msg
             res.statusCode = 201;
             res.send({
@@ -73,10 +94,6 @@ export class UserAPI {
                 message: "User registered successfully!"
             });
 
-            // set session variable and go to home
-            req.session.email = email;
-            res.redirect('/');
-
         } catch(err){
             resError(res, err);
         }
@@ -84,9 +101,10 @@ export class UserAPI {
     }
 
     // login call
-    async login(req: Request<{}, {}, {}, {email: string, password: string}, Session>, res: Response){
-        const email = req.query.email;
-        const password = req.query.password
+    async login(req: Request, res: Response){
+        const loginJson = req.body as { email: string, password: string };
+        const email = loginJson.email
+        const password = loginJson.password
 
         try{
             

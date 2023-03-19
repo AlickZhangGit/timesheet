@@ -11,7 +11,7 @@ export class User {
         app.route(this.apiPath + "/register")
             .post(this.userApi.register)
         app.route(this.apiPath + "/login")
-            .get(this.userApi.login)
+            .post(this.userApi.login)
         app.route(this.apiPath + "/logout")
             .get(this.userApi.logout)
     }
