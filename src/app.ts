@@ -2,6 +2,7 @@ import express from "express";
 import session, {SessionOptions} from "express-session";
 import cookieParser from "cookie-parser"
 import bodyParser from "body-parser"
+import cors from "cors"
 
 import { Data } from './routes/dataRoutes';
 import { User } from './routes/userRoutes';
@@ -33,6 +34,9 @@ class App {
 
         // Set up body-parser middleware to handle JSON data
         this.app.use(bodyParser.json());
+
+        // Set up cors middleware
+        this.app.use(cors());
 
         this.routeData.routes(this.app);
         this.routeUser.routes(this.app);
