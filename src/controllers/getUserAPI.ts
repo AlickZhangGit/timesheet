@@ -1,4 +1,5 @@
 import {Request, Response, NextFunction} from 'express'
+import { Session } from 'express-session';
 import  dbConnect  from '../controllers/dbConnect'
 const $sql = require ('./queries')
 
@@ -9,7 +10,7 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 
 // display error on error, use msg to pinpoint which function failed
-let resError = (res: any, err: any, statusCode=501) => {
+const resError = (res: any, err: any, statusCode=501) => {
     res.setHeader('Content-Type', 'application/json');
     res.statusCode = statusCode;
     res.send({
@@ -46,9 +47,9 @@ function checkPassword(password, hash){
 export class UserAPI {
 
     // register call
-    async register(req: Request, res: Response){
-        let email = req.query.email;
-        let password = bcrypt.hashSync(req.query.password, 8)
+    async register(req: Request<{}, {}, {}, {email: string, password: string}, Session>, res: Response){
+        const email = req.query.email;
+        const password = bcrypt.hashSync(req.query.password, 8)
 
         // check field
         try{
@@ -72,6 +73,10 @@ export class UserAPI {
                 message: "User registered successfully!"
             });
 
+            // set session variable and go to home
+            req.session.email = email;
+            res.redirect('/');
+
         } catch(err){
             resError(res, err);
         }
@@ -79,12 +84,12 @@ export class UserAPI {
     }
 
     // login call
-    async login(req: Request, res: Response){
-        let email = req.query.email;
-        let password = req.query.password
+    async login(req: Request<{}, {}, {}, {email: string, password: string}, Session>, res: Response){
+        const email = req.query.email;
+        const password = req.query.password
 
         try{
-
+            
             // check if user already exists
             const exists = await dbConnect.pool.query($sql.queries.userExists, [email])
             if(exists.rows[0].count == 0){
@@ -95,12 +100,21 @@ export class UserAPI {
             const getUser = await dbConnect.pool.query($sql.queries.getUser, [email])
             await checkPassword(password, getUser.rows[0].password)
 
+            // token expire, 24hrs
+            const tokenExpire = 24 * 60 * 60
+
             // generate access token
             const token = await jwt.sign({ id: email }, process.env.ACCOUNT_HASH, {
-                expiresIn: 86400 // 24 hours
+                expiresIn: tokenExpire
               });
 
+            // set session variable and go to home
+            req.session.email = email;
+
             // return success msg
+            res.cookie('access_token', token,{
+                maxAge: tokenExpire * 1000
+            })
             res.statusCode = 200;
             res.send({
                 success: true,
@@ -109,13 +123,27 @@ export class UserAPI {
                 accessToken: token
             });
 
+            
         } catch(err){
             if (String(err).includes('Incorrect password')){
                 resError(res, err, 403);
             }else{
+                console.log(err)
                 resError(res, err);
             }
             
-        }  
+        }
     }
+
+    // logout
+    async logout(req: Request, res: Response){
+        req.session.destroy(function(err) {
+            if(err) {
+                console.log(err);
+            } else {
+                res.clearCookie('connect.sid');
+                res.clearCookie('access_token');   
+                res.redirect('/');
+            }
+    })}
 }

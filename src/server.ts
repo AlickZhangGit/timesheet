@@ -7,6 +7,11 @@ dotenv.config({ path: './.env'})
 
 const port = process.env.PORT || 4000;
 
+declare module 'express-session' {
+    interface SessionData {
+      email: string;
+    }
+  }
 
 https
     .createServer(

@@ -10,6 +10,10 @@ export class Data {
 
     public routes(app:any): void {
         app.route(this.apiPath + "/test")
-            .post(authJwt.verifyToken, this.dataApi.postTest)
+            .get(authJwt.verifyToken, this.dataApi.getTest)
+        app.route(this.apiPath + "/inserttimes")
+            .post(this.dataApi.postTimesData)
+        app.route(this.apiPath + "/gettimesbymonth")
+            .get(this.dataApi.getTimesByMonth)
     }
 }
