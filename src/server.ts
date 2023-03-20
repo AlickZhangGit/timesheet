@@ -4,7 +4,7 @@ const fs = require("fs")
 const dotenv = require('dotenv')
 dotenv.config({ path: './.env'})
 
-
+const domain = process.env.DOMAIN || "localhost"
 const port = process.env.PORT || 4000;
 
 declare module 'express-session' {
@@ -21,6 +21,6 @@ https
     },
     app
     )
-    .listen(port, ()=>{
-        console.log(`Server is running here 👉 https://localhost:${port}`)
+    .listen(port, domain, ()=>{
+        console.log(`Server is running here 👉 https://${domain}:${port}`)
     })
