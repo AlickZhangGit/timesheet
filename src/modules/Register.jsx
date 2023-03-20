@@ -19,7 +19,7 @@ export default function Register({ registerHandler }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
+    console.log('blaaaaaaaaah')
     registerHandler({ email, password });
   };
 

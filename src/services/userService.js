@@ -9,6 +9,7 @@ const login = async (credentials) => {
 
 const register = async (credentials) => {
   console.log(credentials);
+  console.log("im posting to " + baseUrl)
   const response = await axios.post(baseUrl + "register", credentials);
   return response.data;
 };

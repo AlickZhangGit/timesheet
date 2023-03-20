@@ -36,6 +36,7 @@
   "scripts": {
     "dev": "concurrently \"vite\" \"nodemon ./src/server.ts\"",
     "build": "tsc",
+    "buildvite": "vite build",
     "start": "node ./build/server.js"
   },
   "keywords": [],
