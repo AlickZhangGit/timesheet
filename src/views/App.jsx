@@ -1,11 +1,10 @@
 import { useState } from "react";
-import "../styles/App.css";
-import Calendar from "../modules/Calendar";
-//import Test from "../modules/test";
-
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import userService from "../services/userService";
 import Login from "../modules/Login";
 import Register from "../modules/Register";
-import userService from "../services/userService";
+import Calendar from "../modules/Calendar";
+import "../styles/App.css";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -20,19 +19,22 @@ function App() {
   };
 
   const loginHandler = async (credentials) => {
-    try {
-      userService.login(credentials);
-    } catch (error) {
-      console.log(error);
-    }
+    const result = await userService.login(credentials);
+    console.log(result);
   };
 
   return (
-    <div className="App">
-      <Login loginHandler={loginHandler} />
-      <Register registerHandler={registerHandler} />
-      <Calendar year="2023" month="3" />
-    </div>
+    <BrowserRouter>
+      <div className="App"></div>
+      <Routes>
+        <Route path="/login" element={<Login loginHandler={loginHandler} />} />
+        <Route
+          path="/register"
+          element={<Register registerHandler={registerHandler} />}
+        />
+        <Route path="/calendar" element={<Calendar />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

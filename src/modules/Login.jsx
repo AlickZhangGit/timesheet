@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router";
 
 export default function Login(props) {
   const [email, setEmail] = useState("example@example.com");
   const [password, setPassword] = useState("example1");
+  const navigate = useNavigate();
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -12,9 +14,15 @@ export default function Login(props) {
     setPassword(event.target.value);
   };
 
-  const handleSubmit = (event) => {
-    props.loginHandler({ email, password });
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    try {
+      props.loginHandler({ email, password });
+      //Todo... dont navigate if you havent logged in successfully
+      navigate("/calendar");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
