@@ -11,9 +11,11 @@ export default function DateInput(props) {
 
   const changeMonthHandler = (event) => {
     setMonth(event.target.value);
+    props.setDateHandler(year, event.target.value);
   };
   const changeYearHandler = (event) => {
     setYear(event.target.value);
+    props.setDateHandler(event.target.value, month);
   };
 
   return (
