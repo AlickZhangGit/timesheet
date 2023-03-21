@@ -1,9 +1,9 @@
 import { useState } from "react";
 
 export default function Register({ registerHandler }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [email, setEmail] = useState("example@example.com");
+  const [password, setPassword] = useState("example1");
+  const [confirmPassword, setConfirmPassword] = useState("example1");
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
