@@ -13,6 +13,7 @@ export default function Login(props) {
   };
 
   const handleSubmit = (event) => {
+    props.loginHandler({ email, password });
     event.preventDefault();
   };
 

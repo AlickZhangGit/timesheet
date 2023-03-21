@@ -11,11 +11,8 @@ function App() {
   const [count, setCount] = useState(0);
   const [user, setUser] = useState(0);
 
-  console.log('asdf you blind')
   const registerHandler = async (credentials) => {
-    console.log('1 REGISTERHANDLER CALLED')
     try {
-      console.log('2 REGISTERHANDLER CALLED')
       userService.register(credentials);
     } catch (error) {
       console.log(error);
