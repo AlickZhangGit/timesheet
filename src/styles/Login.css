@@ -1,0 +1,43 @@
+.login {
+  width: 550px;
+  border-style: solid;
+  border-color: rgb(34, 102, 141);
+  color: rgb((255,255,255));
+}
+
+.title{
+  margin-bottom:30px;
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.box{
+  background: rgb(245, 245, 220);
+	border-radius: 25px;
+  padding-top: 40px;
+  padding-right: 30px;
+  padding-bottom: 40px;
+  padding-left: 30px;
+  text-align: center;
+}
+
+label {
+  display: inline-block;
+  width: 200px;
+  text-align: left;
+  padding-right: 5px;
+  margin: auto auto;
+  display: flex;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.smalldiv{
+  padding-top: 5px;
+  padding-bottom: 5px;
+  display:block;
+}
+
+button {
+  margin-top:30px;
+}

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, redirect } from "react-router-dom";
 import userService from "../services/userService";
 import Login from "../modules/Login";
 import Register from "../modules/Register";
@@ -27,6 +27,7 @@ function App() {
     <BrowserRouter>
       <div className="App"></div>
       <Routes>
+        <Route path="/" redirect="/login" />
         <Route path="/login" element={<Login loginHandler={loginHandler} />} />
         <Route
           path="/register"

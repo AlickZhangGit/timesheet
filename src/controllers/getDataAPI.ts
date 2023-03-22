@@ -12,7 +12,7 @@ const resError = (res: any, err: any, statusCode=501) => {
     res.setHeader('Content-Type', 'application/json');
     res.statusCode = statusCode;
     res.send({
-        status: err,
+        Error: err,
         code: err.code
     });
 }
@@ -40,20 +40,14 @@ function jsonToList(jsonData){
 
 export class DataAPI {
     async getTest(req: Request, res: Response){
-        const registerJson = req.body;
-        const email = registerJson.email
-        const password = registerJson.password
 
         try {
-
-            // do the query
-            // const results = await dbConnect.pool.query($sql.queries.test, [id])
-
-            res.statusCode = 201;
+            
+            res.statusCode = 200;
             res.send({
                 success: true,
-                status: 201,
-                message: email
+                status: 200,
+                message: "true"
             });
 
         } catch(err){

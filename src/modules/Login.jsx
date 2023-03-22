@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import "../styles/Login.css";
 
 export default function Login(props) {
   const [email, setEmail] = useState("example@example.com");
@@ -26,23 +27,27 @@ export default function Login(props) {
   };
 
   return (
-    <div className="login">
-      Login:
+    <div className="box">
+      <div class="title">Login</div>
       <form onSubmit={handleSubmit}>
-        Username:
-        <input
-          type="text"
-          value={email}
-          onChange={handleEmailChange}
-          name="Username"
-        />
-        Password:
-        <input
-          type="password"
-          value={password}
-          onChange={handlePasswordChange}
-          name="Password"
-        />
+        <div class="smalldiv">
+          <label>Email</label>
+          <input
+            type="text"
+            value={email}
+            onChange={handleEmailChange}
+            name="Email"
+          />
+        </div>
+        <div class="smalldiv">
+          <label>Password</label>
+          <input
+            type="password"
+            value={password}
+            onChange={handlePasswordChange}
+            name="Password"
+          />
+        </div>
         <button>Login</button>
       </form>
     </div>

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "../styles/Login.css";
 
 export default function Register({ registerHandler }) {
   const [email, setEmail] = useState("example@example.com");
@@ -24,23 +25,36 @@ export default function Register({ registerHandler }) {
   };
 
   return (
-    <div className="register">
-      Register:
+    <div className="box">
+      <div class="title">Register</div>
       <form onSubmit={handleSubmit}>
-        Email:
-        <input value={email} type="text" onChange={handleEmailChange} />
-        Password:
-        <input
-          value={password}
-          type="password"
-          onChange={handlePasswordChange}
-        />
-        Confirm Password:
-        <input
-          value={confirmPassword}
-          type="password"
-          onChange={handleConfirmPasswordChange}
-        />
+        <div class="smalldiv">
+          <label>Email: </label>
+          <input
+            type="text"
+            value={email}
+            onChange={handleEmailChange}
+            id="Email"
+          />
+        </div>
+        <div class="smalldiv">
+          <label>Password</label>
+          <input
+            type="password"
+            value={password}
+            onChange={handlePasswordChange}
+            id="Password"
+          />
+        </div>
+        <div class="smalldiv">
+          <label>Confirm Password</label>
+          <input
+            type="password"
+            value={confirmPassword}
+            onChange={handleConfirmPasswordChange}
+            id="ConfirmPassword"
+          />
+        </div>
         <button>Submit</button>
       </form>
     </div>
