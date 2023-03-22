@@ -42,6 +42,7 @@ export default function Calendar(props) {
   const [selected, setSelected] = useState(() => new Set());
   const [dateinputVisiblity, setDateinputVisiblity] = useState(false);
   const [hoursData, setHoursData] = useState([]);
+  const [selectedDays, setSelectedDays] = useState([]);
   //Hours data is an array of objects that look like...
   //{day: example-3/21/23}
 
@@ -87,6 +88,10 @@ export default function Calendar(props) {
     const newDate = new Date(year, month, 1);
     setCalDate(newDate);
     setDaysArr(daysHelper(newDate));
+  };
+
+  const enterHoursHandler = () => {
+    setSelectedDays(Array.from(selected));
   };
 
   return (
@@ -146,8 +151,8 @@ export default function Calendar(props) {
           })}
         </SelectionArea>
       </div>
-      <button>Enter Hours</button>
-      <HoursForm />
+      <button onClick={enterHoursHandler}>Enter Hours</button>
+      <HoursForm selectedDays={selectedDays} />
     </div>
   );
 }
