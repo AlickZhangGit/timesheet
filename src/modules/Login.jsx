@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import "../styles/Login.css";
+import { Link } from "react-router-dom";
 
 export default function Login(props) {
   const [email, setEmail] = useState("example@example.com");
@@ -28,9 +29,9 @@ export default function Login(props) {
 
   return (
     <div className="box">
-      <div class="title">Login</div>
+      <div className="title">Login</div>
       <form onSubmit={handleSubmit}>
-        <div class="smalldiv">
+        <div className="smalldiv">
           <label>Email</label>
           <input
             type="text"
@@ -39,7 +40,7 @@ export default function Login(props) {
             name="Email"
           />
         </div>
-        <div class="smalldiv">
+        <div className="smalldiv">
           <label>Password</label>
           <input
             type="password"
@@ -50,6 +51,8 @@ export default function Login(props) {
         </div>
         <button>Login</button>
       </form>
+
+      <Link to="/register">Register</Link>
     </div>
   );
 }
