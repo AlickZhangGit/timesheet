@@ -7,15 +7,16 @@ export default function DateInput(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
     props.setDateHandler(year, month);
+    props.toggle();
   };
 
   const changeMonthHandler = (event) => {
-    setMonth(event.target.value);
     props.setDateHandler(year, event.target.value);
+    setMonth(props.date.getMonth());
   };
   const changeYearHandler = (event) => {
-    setYear(event.target.value);
     props.setDateHandler(event.target.value, month);
+    setYear(event.target.value);
   };
 
   return (
@@ -25,7 +26,7 @@ export default function DateInput(props) {
           <select
             id="monthSelector"
             name="monthSelector"
-            value={month}
+            value={props.date.getMonth()}
             onChange={changeMonthHandler}
           >
             <option value="0">January</option>
@@ -46,13 +47,13 @@ export default function DateInput(props) {
           <select
             id="yearSelector"
             name="yearSelector"
-            value={year}
+            value={props.date.getFullYear()}
             onChange={changeYearHandler}
           >
             {yearList(new Date().getFullYear())}
           </select>
         </label>
-        <input type="submit" />
+        <input type="submit" value="✓" />
       </form>
     </div>
   );

@@ -1,8 +1,9 @@
 import { useState } from "react";
-import "../styles/Calendar.css";
-import Day from "./Day";
 import SelectionArea from "@viselect/react";
+import Day from "./Day";
 import DateInput from "./DateInput";
+import HoursForm from "./HoursForm";
+import "../styles/Calendar.css";
 
 function initializeDate() {
   const initDate = new Date(); //Get current date
@@ -39,6 +40,14 @@ export default function Calendar(props) {
   const [calDate, setCalDate] = useState(initializeDate()); //Current Calendar month?
   const [daysArr, setDaysArr] = useState(initializeDaysArr());
   const [selected, setSelected] = useState(() => new Set());
+  const [dateinputVisiblity, setDateinputVisiblity] = useState(false);
+  const [hoursData, setHoursData] = useState([]);
+  //Hours data is an array of objects that look like...
+  //{day: example-3/21/23}
+
+  const toggle = () => {
+    setDateinputVisiblity(!dateinputVisiblity);
+  };
 
   const extractIds = (els) => {
     return els
@@ -81,53 +90,81 @@ export default function Calendar(props) {
   };
 
   return (
-    <div className="calendar">
-      <div className="calendarNavigator">
-        <button
-          onClick={() => {
-            monthNav(-1);
-          }}
+    <div id="calendarWrapper">
+      <div className="calendar">
+        <div className="calendarNavigator">
+          <button
+            onClick={() => {
+              monthNav(-1);
+            }}
+          >
+            {"<"}
+          </button>
+          <div id="dateSelection">
+            {dateinputVisiblity ? (
+              <DateInput
+                date={calDate}
+                setDateHandler={setDateHandler}
+                toggle={toggle}
+              />
+            ) : (
+              <button id="monthName" onClick={toggle}>
+                {new Intl.DateTimeFormat("en-US", {
+                  year: "numeric",
+                  month: "long",
+                }).format(calDate)}
+              </button>
+            )}
+          </div>
+          <button
+            onClick={() => {
+              monthNav(1);
+            }}
+          >
+            {">"}
+          </button>
+        </div>
+        <SelectionArea
+          className="container1"
+          onStart={onStart}
+          onMove={onMove}
+          selectables=".selectable"
         >
-          {"<"}
-        </button>
-        <div id="dateSelection">
-          <DateInput date={calDate} setDateHandler={setDateHandler} />
-          <button id="monthName">
+          {daysArr.map((day) => {
+            return (
+              <Day
+                className={
+                  selected.has(day.getTime())
+                    ? "selected selectable"
+                    : "selectable"
+                }
+                date={day}
+                key={day.getTime()}
+                data-key={day.getTime()}
+              />
+            );
+          })}
+        </SelectionArea>
+      </div>
+      <button>Enter Hours</button>
+      <HoursForm />
+    </div>
+  );
+}
+
+/*
+<DateInput
+            date={calDate}
+            setDateHandler={setDateHandler}
+            toggle={toggle}
+          />
+
+
+<button id="monthName">
             {new Intl.DateTimeFormat("en-US", {
               year: "numeric",
               month: "long",
             }).format(calDate)}
           </button>
-        </div>
-        <button
-          onClick={() => {
-            monthNav(1);
-          }}
-        >
-          {">"}
-        </button>
-      </div>
-      <SelectionArea
-        className="container1"
-        onStart={onStart}
-        onMove={onMove}
-        selectables=".selectable"
-      >
-        {daysArr.map((day) => {
-          return (
-            <Day
-              className={
-                selected.has(day.getTime())
-                  ? "selected selectable"
-                  : "selectable"
-              }
-              date={day}
-              key={day.getTime()}
-              data-key={day.getTime()}
-            />
-          );
-        })}
-      </SelectionArea>
-    </div>
-  );
-}
+
+*/
