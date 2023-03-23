@@ -96,63 +96,74 @@ export default function Calendar(props) {
 
   return (
     <div id="calendarWrapper">
-      <div className="calendar">
-        <div className="calendarNavigator">
-          <button
-            onClick={() => {
-              monthNav(-1);
-            }}
-          >
-            {"<"}
-          </button>
-          <div id="dateSelection">
-            {dateinputVisiblity ? (
-              <DateInput
-                date={calDate}
-                setDateHandler={setDateHandler}
-                toggle={toggle}
-              />
-            ) : (
-              <button id="monthName" onClick={toggle}>
-                {new Intl.DateTimeFormat("en-US", {
-                  year: "numeric",
-                  month: "long",
-                }).format(calDate)}
-              </button>
-            )}
-          </div>
-          <button
-            onClick={() => {
-              monthNav(1);
-            }}
-          >
-            {">"}
-          </button>
+      <div className="navbar">
+        <div className="topnav-right">
+          <a href="/api/v1/logout">Logout</a>
         </div>
-        <SelectionArea
-          className="container1"
-          onStart={onStart}
-          onMove={onMove}
-          selectables=".selectable"
-        >
-          {daysArr.map((day) => {
-            return (
-              <Day
-                className={
-                  selected.has(day.getTime())
-                    ? "selected selectable"
-                    : "selectable"
-                }
-                date={day}
-                key={day.getTime()}
-                data-key={day.getTime()}
-              />
-            );
-          })}
-        </SelectionArea>
       </div>
-      <button onClick={enterHoursHandler}>Enter Hours</button>
-      <HoursForm selectedDays={selectedDays} setUserData={props.setUserData} />
+
+      <div className="calendarMain">
+        <div className="calendar">
+          <div className="calendarNavigator">
+            <button
+              onClick={() => {
+                monthNav(-1);
+              }}
+            >
+              {"<"}
+            </button>
+            <div id="dateSelection">
+              {dateinputVisiblity ? (
+                <DateInput
+                  date={calDate}
+                  setDateHandler={setDateHandler}
+                  toggle={toggle}
+                />
+              ) : (
+                <button id="monthName" onClick={toggle}>
+                  {new Intl.DateTimeFormat("en-US", {
+                    year: "numeric",
+                    month: "long",
+                  }).format(calDate)}
+                </button>
+              )}
+            </div>
+            <button
+              onClick={() => {
+                monthNav(1);
+              }}
+            >
+              {">"}
+            </button>
+          </div>
+          <SelectionArea
+            className="container1"
+            onStart={onStart}
+            onMove={onMove}
+            selectables=".selectable"
+          >
+            {daysArr.map((day) => {
+              return (
+                <Day
+                  className={
+                    selected.has(day.getTime())
+                      ? "selected selectable"
+                      : "selectable"
+                  }
+                  date={day}
+                  key={day.getTime()}
+                  data-key={day.getTime()}
+                />
+              );
+            })}
+          </SelectionArea>
+        </div>
+        <button onClick={enterHoursHandler}>Enter Hours</button>
+        <HoursForm
+          selectedDays={selectedDays}
+          setUserData={props.setUserData}
+        />
+      </div>
     </div>
   );
 }
