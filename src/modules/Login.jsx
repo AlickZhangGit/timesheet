@@ -19,9 +19,19 @@ export default function Login(props) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      props.loginHandler({ email, password });
-      //Todo... dont navigate if you havent logged in successfully
-      navigate("/calendar");
+      const response = await fetch("/api/v1/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+      if (response.ok) {
+        const data = await response.json();
+        navigate("/calendar");
+      } else {
+        throw new Error("Failed to login");
+      }
     } catch (error) {
       console.log(error);
     }

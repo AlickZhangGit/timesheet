@@ -26,9 +26,9 @@ export default function Register({ registerHandler }) {
 
   return (
     <div className="box">
-      <div class="title">Register</div>
+      <div className="title">Register</div>
       <form onSubmit={handleSubmit}>
-        <div class="smalldiv">
+        <div className="smalldiv">
           <label>Email: </label>
           <input
             type="text"
@@ -37,7 +37,7 @@ export default function Register({ registerHandler }) {
             id="Email"
           />
         </div>
-        <div class="smalldiv">
+        <div className="smalldiv">
           <label>Password</label>
           <input
             type="password"
@@ -46,7 +46,7 @@ export default function Register({ registerHandler }) {
             id="Password"
           />
         </div>
-        <div class="smalldiv">
+        <div className="smalldiv">
           <label>Confirm Password</label>
           <input
             type="password"
