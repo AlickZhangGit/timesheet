@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import "../styles/Login.css";
 import { Link } from "react-router-dom";
+import userService from "../services/userService";
 
 export default function Login(props) {
   const [email, setEmail] = useState("example@example.com");
@@ -15,8 +16,8 @@ export default function Login(props) {
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
-
-  const handleSubmit = async (event) => {
+  /*
+  const handleSubmit1 = async (event) => {
     event.preventDefault();
     try {
       const response = await fetch("/api/v1/login", {
@@ -26,8 +27,24 @@ export default function Login(props) {
         },
         body: JSON.stringify({ email, password }),
       });
-      if (response.ok) {
+      console.log("AAAAAAAAAA" + response.status === 200);
+      if (response.status === 200) {
         const data = await response.json();
+        navigate("/calendar");
+      } else {
+        throw new Error("Failed to login");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+*/
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await userService.login({ email, password });
+      if (response.status === 200) {
+        const data = response.data; //i guess ill do something with this
         navigate("/calendar");
       } else {
         throw new Error("Failed to login");

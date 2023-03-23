@@ -7,7 +7,8 @@ const login = async (credentials) => {
   console.log("Im logging in to " + baseUrl + " with " + credentials.email);
   try {
     const response = await axios.post(baseUrl + "login", credentials);
-    return response.data;
+    console.log(response);
+    return response;
   } catch (error) {
     console.log("Userservice error");
     return error;
@@ -20,12 +21,9 @@ const register = async (credentials) => {
   return response.data;
 };
 
-
 const checkAuthentication = async (credentials) => {
   const response = await axios.get(baseUrl + "test", credentials);
   return response;
 };
-
-
 
 export default { login, register, checkAuthentication };
