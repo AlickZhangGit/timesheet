@@ -22,7 +22,7 @@ const resError = (res: any, err: any, statusCode=501) => {
     res.setHeader('Content-Type', 'application/json');
     res.statusCode = statusCode;
     res.send({
-        status: err,
+        Error: err,
         code: err.code
     });
 }
@@ -98,7 +98,12 @@ export class UserAPI {
             });
 
         } catch(err){
-            resError(res, err);
+            if (String(err).includes('Email already exists.')){
+                resError(res, err, 400);
+            }else{
+                console.log(err)
+                resError(res, err);
+            }
         }
 
     }
