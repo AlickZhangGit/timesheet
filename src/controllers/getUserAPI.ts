@@ -1,6 +1,6 @@
 import {Request, Response, NextFunction} from 'express'
 import { Session } from 'express-session';
-import  dbConnect  from '../controllers/dbConnect'
+import  dbConnect  from '../middleware/dbConnect'
 const $sql = require ('./queries')
 
 const dotenv = require('dotenv')
@@ -8,6 +8,9 @@ dotenv.config({ path: './.env'})
 
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
+
+const domain = process.env.DOMAIN || "localhost"
+const port = process.env.PORT || 4000;
 
 interface registerData {
     email: string;
@@ -154,14 +157,9 @@ export class UserAPI {
     }
 
     // logout
-    async logout(req: Request, res: Response){
-        req.session.destroy(function(err) {
-            if(err) {
-                console.log(err);
-            } else {
-                res.clearCookie('connect.sid');
-                res.clearCookie('access_token');   
-                res.redirect('/');
-            }
-    })}
+    async logout(req, res) {
+        res.clearCookie('access_token');
+        res.clearCookie('connect.sid');
+        res.redirect(`https://${domain}:${port}/login`);
+      }
 }

@@ -1,6 +1,10 @@
 import { Request, Response, NextFunction } from "express"
 import { FrontRoute } from '../controllers/getFront'
+<<<<<<< HEAD
 import  authJwt  from '../controllers/authJwt'
+=======
+import  authJwt  from '../middleware/authJwt'
+>>>>>>> 66b028c (middleware folder)
 
 // api routes
 export class Front {

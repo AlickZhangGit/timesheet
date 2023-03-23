@@ -1,6 +1,6 @@
 import {Request, Response, NextFunction} from 'express'
 import { Session } from 'express-session';
-import  dbConnect  from '../controllers/dbConnect'
+import  dbConnect  from '../middleware/dbConnect'
 const $sql = require ('./queries')
 
 const dotenv = require('dotenv')
