@@ -1,22 +1,26 @@
 import { useState } from "react";
+import userService from "../services/userService";
 
-export default function HoursForm({ selectedDays, setUserData }) {
-  //Takes an array of days?
+export default function HoursForm({ selectedDays }) {
+  //Takes an array of days (just ids of dates, they need to be cast as Dates)
+
+  const [userData, setUserData] = useState();
+  //Userdata is an array of days... {}
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const arr = [];
     const els = event.target;
     for (let i = 0; i < els.length - 1; i++) {
-      const day = event.target[i].getAttribute("data-key");
+      const date = new Date(event.target[i].getAttribute("data-key"));
       const hours = event.target[i].value;
-      arr.push({ day, hours });
+      arr.push({ date, hours });
     }
     console.log(
       "You submitted your hours! the array of dates and hours looks like"
     );
     console.table(arr);
-    setUserData(arr);
+    userService.postUserData(arr);
   };
 
   return (
@@ -47,7 +51,7 @@ function DayEntry({ day }) {
     month: "long",
     day: "numeric",
   };
-  console.log("Im rerendering a day entry ", date);
+  //console.log("Im rerendering a day entry ", date);
 
   const handleChange = (event) => {
     setHours(event.target.value);

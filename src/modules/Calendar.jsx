@@ -37,11 +37,12 @@ function daysHelper(date) {
 }
 
 export default function Calendar(props) {
+  //Calendar UI variables
   const [calDate, setCalDate] = useState(initializeDate()); //Current Calendar month?
   const [daysArr, setDaysArr] = useState(initializeDaysArr());
   const [selected, setSelected] = useState(() => new Set());
   const [dateinputVisiblity, setDateinputVisiblity] = useState(false);
-  const [hoursData, setHoursData] = useState([]);
+
   const [selectedDays, setSelectedDays] = useState([]);
   //Hours data is an array of objects that look like...
   //{day: example-3/21/23}
@@ -90,7 +91,7 @@ export default function Calendar(props) {
     setDaysArr(daysHelper(newDate));
   };
 
-  const enterHoursHandler = () => {
+  const updateHoursHandlerForm = () => {
     setSelectedDays(Array.from(selected));
   };
 
@@ -171,8 +172,8 @@ export default function Calendar(props) {
           </SelectionArea>
         </div>
       </div>
-      <button onClick={enterHoursHandler}>Enter Hours</button>
-      <HoursForm selectedDays={selectedDays} setUserData={props.setUserData} />
+      <button onClick={updateHoursHandlerForm}>Enter Hours</button>
+      <HoursForm selectedDays={selectedDays} />
     </div>
   );
 }

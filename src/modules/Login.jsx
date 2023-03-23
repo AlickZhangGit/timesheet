@@ -16,29 +16,7 @@ export default function Login(props) {
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
-  /*
-  const handleSubmit1 = async (event) => {
-    event.preventDefault();
-    try {
-      const response = await fetch("/api/v1/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
-      console.log("AAAAAAAAAA" + response.status === 200);
-      if (response.status === 200) {
-        const data = await response.json();
-        navigate("/calendar");
-      } else {
-        throw new Error("Failed to login");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-*/
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {

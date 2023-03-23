@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import userService from "../services/userService";
 import Login from "../modules/Login";
@@ -9,9 +8,6 @@ import RedirectToAppropriate from "../modules/Redirect";
 import rose from "../assets/rose-petals.svg";
 
 function App() {
-  const [user, setUser] = useState(0);
-  const [userData, setUserData] = useState([{ date: new Date(), hours: "8" }]);
-  //Userdata is an array of days... {}
   const registerHandler = async (credentials) => {
     userService.register(credentials);
   };
@@ -20,10 +16,6 @@ function App() {
     const result = await userService.login(credentials);
     console.log(result);
   };
-
-  console.log("userdata", userData);
-
-  const submitUserData = (data) => {};
 
   const backgroundStyle = {
     backgroundImage: `url(${rose})`,
@@ -46,10 +38,7 @@ function App() {
             path="/register"
             element={<Register registerHandler={registerHandler} />}
           />
-          <Route
-            path="/calendar"
-            element={<Calendar setUserData={setUserData} />}
-          />
+          <Route path="/calendar" element={<Calendar />} />
         </Routes>
       </BrowserRouter>
     </div>
