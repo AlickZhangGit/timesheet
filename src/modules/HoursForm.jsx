@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function HoursForm({ selectedDays }) {
+export default function HoursForm({ selectedDays, setUserData }) {
   //Takes an array of days?
 
   const handleSubmit = (event) => {
@@ -16,6 +16,7 @@ export default function HoursForm({ selectedDays }) {
       "You submitted your hours! the array of dates and hours looks like"
     );
     console.table(arr);
+    setUserData(arr);
   };
 
   return (

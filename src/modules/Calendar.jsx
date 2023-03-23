@@ -152,7 +152,7 @@ export default function Calendar(props) {
         </SelectionArea>
       </div>
       <button onClick={enterHoursHandler}>Enter Hours</button>
-      <HoursForm selectedDays={selectedDays} />
+      <HoursForm selectedDays={selectedDays} setUserData={props.setUserData} />
     </div>
   );
 }
