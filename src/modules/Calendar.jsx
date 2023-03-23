@@ -97,6 +97,15 @@ export default function Calendar(props) {
   return (
     <div id="calendarWrapper">
       <div className="navbar">
+        <div className="topnav-left-active">
+          <a href="/calendar">Calendar</a>
+        </div>
+        <div className="topnav-left">
+          <a href="/calendar">Other1</a>
+        </div>
+        <div className="topnav-left">
+          <a href="/calendar">Other2</a>
+        </div>
         <div className="topnav-right">
           <a href="/api/v1/logout">Logout</a>
         </div>
@@ -105,36 +114,39 @@ export default function Calendar(props) {
       <div className="calendarMain">
         <div className="calendar">
           <div className="calendarNavigator">
-            <button
-              onClick={() => {
-                monthNav(-1);
-              }}
-            >
-              {"<"}
-            </button>
-            <div id="dateSelection">
-              {dateinputVisiblity ? (
-                <DateInput
-                  date={calDate}
-                  setDateHandler={setDateHandler}
-                  toggle={toggle}
-                />
-              ) : (
-                <button id="monthName" onClick={toggle}>
-                  {new Intl.DateTimeFormat("en-US", {
-                    year: "numeric",
-                    month: "long",
-                  }).format(calDate)}
-                </button>
-              )}
+            <div className="calendarNav">
+              <button
+                onClick={() => {
+                  monthNav(-1);
+                }}
+              >
+                {"<"}
+              </button>
+              <div id="dateSelection">
+                {dateinputVisiblity ? (
+                  <DateInput
+                    date={calDate}
+                    setDateHandler={setDateHandler}
+                    toggle={toggle}
+                  />
+                ) : (
+                  <button id="monthName" onClick={toggle}>
+                    {new Intl.DateTimeFormat("en-US", {
+                      year: "numeric",
+                      month: "long",
+                    }).format(calDate)}
+                  </button>
+                )}
+              </div>
+              <button
+                style={{ float: "right" }}
+                onClick={() => {
+                  monthNav(1);
+                }}
+              >
+                {">"}
+              </button>
             </div>
-            <button
-              onClick={() => {
-                monthNav(1);
-              }}
-            >
-              {">"}
-            </button>
           </div>
           <SelectionArea
             className="container1"
@@ -158,12 +170,9 @@ export default function Calendar(props) {
             })}
           </SelectionArea>
         </div>
-        <button onClick={enterHoursHandler}>Enter Hours</button>
-        <HoursForm
-          selectedDays={selectedDays}
-          setUserData={props.setUserData}
-        />
       </div>
+      <button onClick={enterHoursHandler}>Enter Hours</button>
+      <HoursForm selectedDays={selectedDays} setUserData={props.setUserData} />
     </div>
   );
 }

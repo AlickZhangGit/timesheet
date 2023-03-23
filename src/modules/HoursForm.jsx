@@ -20,14 +20,17 @@ export default function HoursForm({ selectedDays, setUserData }) {
   };
 
   return (
-    <div>
-      Enter Hours Here
+    <div
+      style={{
+        padding: "0px",
+      }}
+    >
+      <br />
       <form onSubmit={handleSubmit}>
         <div>
           {selectedDays.map((day) => {
             return <DayEntry day={day} />;
           })}
-          <br />
         </div>
         <input type="submit" value="OK" />
       </form>
@@ -51,15 +54,27 @@ function DayEntry({ day }) {
   };
 
   return (
-    <label>
-      {date.toLocaleDateString(undefined, options)}
+    <label
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        padding: "0px",
+      }}
+    >
+      <div
+        style={{
+          display: "inline-flex",
+          fontSize: "15px",
+        }}
+      >
+        {date.toLocaleDateString(undefined, options)}
+      </div>
       <input
         type="text"
         value={hours}
         onChange={handleChange}
         data-key={date.toLocaleDateString(undefined, options)}
       />{" "}
-      Hours
     </label>
   );
 }
