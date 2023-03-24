@@ -95,13 +95,11 @@ export class DataAPI {
   async getTimesByMonth(req: Request, res: Response) {
     const token = req.cookies?.access_token;
     const decoded = await getDecodedAccessToken(token) 
-
-    console.log(`I received a request from ${email} to get data for the year ${year} and month ${month}`)
-
     try {
         const email = decoded.id
         const year = req.query.year;
         const month = req.query.month;
+        console.log(`I received a request from ${email} to get data for the year ${year} and month ${month}`)
         const times = await dbConnect.pool.query($sql.queries.getTimeByMonth, [
         email,
         year,
