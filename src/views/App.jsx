@@ -22,7 +22,7 @@ function App() {
     height: "100vh",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
-    "background-position": "center center",
+    backgroundPosition: "center center",
   };
 
   return (
