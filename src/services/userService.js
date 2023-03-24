@@ -33,18 +33,26 @@ const checkAuthentication = async (credentials) => {
 const postUserData = async (arr) => {
   const convertedArr = convertUserDataToPostableFormat(arr);
   console.log("I AM POSTING USERDATA TO API", convertedArr);
-  const response = await axios.post(
-    baseUrl + "inserttimes",
-    JSON.stringify(convertedArr)
-  );
+  const response = await axios.post(baseUrl + "inserttimes", convertedArr);
   return response;
 };
 
 //Get userdata for any given month and return it in the array style of userData
 //{"year":"2023", "month":"03", "day":"11", "hours":"10-6"}
 const getDataForMonth = async (date) => {
+  const time = { year: 2020, month: 10 };
+  const response = await axios.get(baseUrl + "gettimesbymonth", time);
+  return response;
   //extract month and year? and then send req
 };
+console.log("Testing Api");
+const date = new Date();
+const hours = "8";
+let obj = { date, hours };
+//console.log(checkAuthentication());
+console.log("Im posing 3/24 8 hours", obj);
+console.log(postUserData([obj]));
+//console.log(getDataForMonth());
 
 function convertUserDataToPostableFormat(array) {
   const convertedArray = [];
@@ -70,3 +78,5 @@ function convertUserDataToPostableFormat(array) {
 }
 
 export default { login, register, checkAuthentication, postUserData };
+
+function convertAPIMonthToUserData(apidata) {}
