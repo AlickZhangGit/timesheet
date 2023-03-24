@@ -1,5 +1,4 @@
 import {Request, Response, NextFunction} from 'express'
-import { Session } from 'express-session';
 import  dbConnect  from '../middleware/dbConnect'
 const $sql = require ('./queries')
 
@@ -63,8 +62,12 @@ function checkPassword(password, hash){
     })
 }
 
+// token expire, 24hrs
+const tokenExpire = 24 * 60 * 60 * 1000
+
 
 export class UserAPI {
+    
 
     // register call
     async register(req: Request, res: Response){
@@ -86,8 +89,15 @@ export class UserAPI {
             // add into db
             await dbConnect.pool.query($sql.queries.addUser, [email, password]);
 
-            // set session variable
-            req.session.email = email;
+            // generate access token
+            const token = await jwt.sign({ id: email }, process.env.ACCOUNT_HASH, {
+                expiresIn: tokenExpire
+              });
+
+            // return success msg
+            res.cookie('access_token', token,{
+                maxAge: tokenExpire 
+            })
 
             // return success msg
             res.statusCode = 201;
@@ -126,20 +136,14 @@ export class UserAPI {
             const getUser = await dbConnect.pool.query($sql.queries.getUser, [email])
             await checkPassword(password, getUser.rows[0].password)
 
-            // token expire, 24hrs
-            const tokenExpire = 24 * 60 * 60
-
             // generate access token
             const token = await jwt.sign({ id: email }, process.env.ACCOUNT_HASH, {
                 expiresIn: tokenExpire
               });
 
-            // set session variable and go to home
-            req.session.email = email;
-
             // return success msg
             res.cookie('access_token', token,{
-                maxAge: tokenExpire * 1000
+                maxAge: tokenExpire
             })
             res.statusCode = 200;
             res.send({

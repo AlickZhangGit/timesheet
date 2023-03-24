@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import { Session } from "express-session";
 import dbConnect from "../middleware/dbConnect";
+import jwt_decode from "jwt-decode";
 const $sql = require("./queries");
 
 const dotenv = require("dotenv");
@@ -41,6 +41,16 @@ function jsonToList(jsonData) {
   });
 }
 
+function getDecodedAccessToken(token: string): any {
+    return new Promise((resolve, reject) => {
+        try {
+            resolve(jwt_decode(token));
+        } catch (err) {
+            reject(err);
+        }
+      });
+  }
+
 export class DataAPI {
   async getTest(req: Request, res: Response) {
     try {
@@ -56,48 +66,44 @@ export class DataAPI {
   }
 
   async postTimesData(req: Request, res: Response) {
+    const token = req.cookies?.access_token;
+
     try {
-      console.log('I have recieved values, ', req.body)
-      console.log(req.session.email) //this can be undefined if the server restarts 
-      //and a cookie from a previous server restart was in effect, relogin required
-      const email = req.session.email; //!!!
-      const body = req.body
-      const timesJson = body.map((el)=>{
+        const decoded = await getDecodedAccessToken(token)
+        const email = decoded.id
+        const body = req.body
+        const timesJson = body.map((el)=>{
         return {email: email, ...el}
       });
       
-      
-      console.log("timesJson ", timesJson)
       const values = await jsonToList(timesJson);
       const sql = `INSERT INTO timesheet.times (email, year, month, day, hours) VALUES ${values}`;
 
-
       res.statusCode = 201;
       res.send({
-        success: true,
-        status: 201,
-        message: "pass",
+        message: "success",
       });
     } catch (err) {
+
       resError(res, err);
     }
   }
 
   async getTimesByMonth(req: Request, res: Response) {
-    const email = req.session.email;
-    const year = req.query.year;
-    const month = req.query.month;
+    const token = req.cookies?.access_token;
+    const decoded = await getDecodedAccessToken(token) 
 
     try {
-      const times = await dbConnect.pool.query($sql.queries.getTimeByMonth, [
+        const email = decoded.id
+        const year = req.query.year;
+        const month = req.query.month;
+        const times = await dbConnect.pool.query($sql.queries.getTimeByMonth, [
         email,
         year,
         month,
       ]);
       res.statusCode = 200;
       res.send({
-        success: true,
-        status: 200,
         data: times.rows,
       });
     } catch (err) {
