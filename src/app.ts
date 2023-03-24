@@ -1,5 +1,4 @@
 import express from "express";
-import session, {SessionOptions} from "express-session";
 import cookieParser from "cookie-parser"
 import bodyParser from "body-parser"
 import cors from "cors"
@@ -20,17 +19,6 @@ class App {
 
     constructor() {
         this.app = express()
-
-        // Set up session middleware
-        const sessionOptions: SessionOptions = {
-            secret: process.env.SESSION_SECRET || "",
-            resave: false,
-            saveUninitialized: false,
-            cookie: { 
-                maxAge: 24 * 60 * 60 * 1000 // 24 hour
-            }
-        };
-        this.app.use(session(sessionOptions));
 
         // Set up cookie parser middleware
         this.app.use(cookieParser());
