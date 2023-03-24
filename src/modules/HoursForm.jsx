@@ -1,7 +1,8 @@
 import { useState } from "react";
 import userService from "../services/userService";
+import "../styles/HoursForm.css";
 
-export default function HoursForm({ selectedDays }) {
+export default function HoursForm({ selectedDays, closeModal }) {
   //Takes an array of days (just ids of dates, they need to be cast as Dates)
 
   const [userData, setUserData] = useState();
@@ -21,14 +22,11 @@ export default function HoursForm({ selectedDays }) {
     );
     console.table(arr);
     userService.postUserData(arr);
+    closeModal();
   };
 
   return (
-    <div
-      style={{
-        padding: "0px",
-      }}
-    >
+    <div className="hoursForm">
       <br />
       <form onSubmit={handleSubmit}>
         <div>
@@ -36,7 +34,8 @@ export default function HoursForm({ selectedDays }) {
             return <DayEntry day={day} />;
           })}
         </div>
-        <input type="submit" value="OK" />
+        <br />
+        <input className="submitButton" type="submit" value="Submit" />
       </form>
     </div>
   );
@@ -58,19 +57,8 @@ function DayEntry({ day }) {
   };
 
   return (
-    <label
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        padding: "0px",
-      }}
-    >
-      <div
-        style={{
-          display: "inline-flex",
-          fontSize: "15px",
-        }}
-      >
+    <label className="formEntry">
+      <div className="formDate">
         {date.toLocaleDateString(undefined, options)}
       </div>
       <input

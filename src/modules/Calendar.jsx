@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Modal from "react-modal";
 import SelectionArea from "@viselect/react";
 import Day from "./Day";
 import DateInput from "./DateInput";
@@ -44,6 +45,10 @@ export default function Calendar(props) {
   const [dateinputVisiblity, setDateinputVisiblity] = useState(false);
 
   const [selectedDays, setSelectedDays] = useState([]);
+
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const closeModal = () => setIsOpen(false);
+  const openModal = () => setIsOpen(true);
   //Hours data is an array of objects that look like...
   //{day: example-3/21/23}
 
@@ -93,7 +98,10 @@ export default function Calendar(props) {
 
   const updateHoursHandlerForm = () => {
     setSelectedDays(Array.from(selected));
+    setIsOpen(true);
   };
+
+  const div1Style = { color: "red" };
 
   return (
     <div id="calendarWrapper">
@@ -173,24 +181,19 @@ export default function Calendar(props) {
         </div>
       </div>
       <button onClick={updateHoursHandlerForm}>Enter Hours</button>
-      <HoursForm selectedDays={selectedDays} />
+      <div>
+        <Modal
+          isOpen={modalIsOpen}
+          contentLabel="Example Modal"
+          ariaHideApp={false}
+          className="Modal"
+        >
+          <button className="closeButton" onClick={closeModal}>
+            X
+          </button>
+          <HoursForm selectedDays={selectedDays} closeModal={closeModal} />
+        </Modal>
+      </div>
     </div>
   );
 }
-
-/*
-<DateInput
-            date={calDate}
-            setDateHandler={setDateHandler}
-            toggle={toggle}
-          />
-
-
-<button id="monthName">
-            {new Intl.DateTimeFormat("en-US", {
-              year: "numeric",
-              month: "long",
-            }).format(calDate)}
-          </button>
-
-*/
