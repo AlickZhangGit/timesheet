@@ -5,20 +5,20 @@ const baseUrl =
 
 //Login with email and password
 const login = async (credentials) => {
-  console.log("Im logging in to " + baseUrl + " with " + credentials.email);
+  console.log("Logging in to " + baseUrl + " with " + credentials.email);
   try {
     const response = await axios.post(baseUrl + "login", credentials);
     console.log(response);
     return response;
   } catch (error) {
-    console.log("Userservice error");
+    console.log("Login error in userservice");
     return error;
   }
 };
 
 //Register with email and password
 const register = async (credentials) => {
-  console.log("Im registering to " + baseUrl + " with " + credentials.email);
+  console.log("Registering to " + baseUrl + " with " + credentials.email);
   const response = await axios.post(baseUrl + "register", credentials);
   return response.data;
 };
@@ -32,7 +32,7 @@ const checkAuthentication = async (credentials) => {
 //Post array of userData, conversion happens here
 const postUserData = async (arr) => {
   const convertedArr = convertUserDataToPostableFormat(arr);
-  console.log("I AM POSTING USERDATA TO API", convertedArr);
+  console.log("Posting userdata to API", convertedArr);
   const response = await axios.post(baseUrl + "inserttimes", convertedArr);
   return response;
 };
@@ -40,19 +40,19 @@ const postUserData = async (arr) => {
 //Get userdata for any given month and return it in the array style of userData
 //{"year":"2023", "month":"03", "day":"11", "hours":"10-6"}
 const getDataForMonth = async (date) => {
-  const time = { year: 2020, month: 10 };
-  const response = await axios.get(baseUrl + "gettimesbymonth", time);
-  return response;
+  console.log("Requesting data for ", date);
+  //gettimes?year=asdf&month=asdf
+  const query = `gettimesbymonth?year=${date.getFullYear()}&month=${date.getMonth()}`;
+  const response = await axios.get(baseUrl + query);
+  console.log(response.data.data);
+  const userData = response.data.data.map((el) => {
+    const date = new Date(el.year, el.month, el.day);
+    return { date: date, hours: el.hours };
+  });
+  console.log("formatted into", userData);
+  return userData;
   //extract month and year? and then send req
 };
-console.log("Testing Api");
-const date = new Date();
-const hours = "8";
-let obj = { date, hours };
-//console.log(checkAuthentication());
-console.log("Im posing 3/24 8 hours", obj);
-console.log(postUserData([obj]));
-//console.log(getDataForMonth());
 
 function convertUserDataToPostableFormat(array) {
   const convertedArray = [];
@@ -77,6 +77,12 @@ function convertUserDataToPostableFormat(array) {
   return convertedArray;
 }
 
-export default { login, register, checkAuthentication, postUserData };
-
 function convertAPIMonthToUserData(apidata) {}
+
+export default {
+  login,
+  register,
+  checkAuthentication,
+  postUserData,
+  getDataForMonth,
+};

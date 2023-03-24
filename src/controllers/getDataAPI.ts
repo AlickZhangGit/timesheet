@@ -57,20 +57,17 @@ export class DataAPI {
 
   async postTimesData(req: Request, res: Response) {
     try {
-      console.log('I have recieved values, ', req.body)
-      console.log(req.session.email) //this can be undefined if the server restarts 
-      //and a cookie from a previous server restart was in effect, relogin required
+      if(req.session.email === undefined){
+        console.log("warning: email undefined")
+      }
       const email = req.session.email; //!!!
       const body = req.body
       const timesJson = body.map((el)=>{
         return {email: email, ...el}
       });
-      
-      
-      console.log("timesJson ", timesJson)
       const values = await jsonToList(timesJson);
       const sql = `INSERT INTO timesheet.times (email, year, month, day, hours) VALUES ${values}`;
-
+      await dbConnect.pool.query(sql)
 
       res.statusCode = 201;
       res.send({
@@ -87,6 +84,8 @@ export class DataAPI {
     const email = req.session.email;
     const year = req.query.year;
     const month = req.query.month;
+
+    console.log(`I received a request from ${email} to get data for the year ${year} and month ${month}`)
 
     try {
       const times = await dbConnect.pool.query($sql.queries.getTimeByMonth, [

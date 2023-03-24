@@ -25,6 +25,11 @@ export default function HoursForm({ selectedDays, closeModal }) {
     closeModal();
   };
 
+  const runGetData = () => {
+    const date = new Date();
+    userService.getDataForMonth(date);
+  };
+
   return (
     <div className="hoursForm">
       <br />
@@ -37,6 +42,7 @@ export default function HoursForm({ selectedDays, closeModal }) {
         <br />
         <input className="submitButton" type="submit" value="Submit" />
       </form>
+      <button onClick={runGetData}>TEST</button>
     </div>
   );
 }
