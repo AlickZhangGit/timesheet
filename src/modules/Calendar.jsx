@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import userService from "../services/userService";
 import Modal from "react-modal";
 import SelectionArea from "@viselect/react";
 import Day from "./Day";
@@ -51,6 +53,25 @@ export default function Calendar(props) {
   const openModal = () => setIsOpen(true);
   //Hours data is an array of objects that look like...
   //{day: example-3/21/23}
+
+  const navigate = useNavigate();
+  const checkAuth = async (credentials) => {
+    try {
+      console.log("asdf");
+      const response = await userService.checkAuthentication(credentials);
+      console.log("asdf2");
+      // console.log(response.status);
+      // if (response.status != 200) {
+      //   navigate("/login");
+      // }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    checkAuth();
+  }, []);
 
   const toggle = () => {
     setDateinputVisiblity(!dateinputVisiblity);

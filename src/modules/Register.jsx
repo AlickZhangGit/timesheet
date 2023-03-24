@@ -1,10 +1,20 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/Login.css";
+import userService from "../services/userService";
 
-export default function Register({ registerHandler }) {
+export default function Register() {
   const [email, setEmail] = useState("example@example.com");
   const [password, setPassword] = useState("example1");
   const [confirmPassword, setConfirmPassword] = useState("example1");
+
+  const navigate = useNavigate();
+  const registerHandler = async (credentials) => {
+    const response = await userService.register(credentials);
+    if (response.status === 201) {
+      navigate("/calendar");
+    }
+  };
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);

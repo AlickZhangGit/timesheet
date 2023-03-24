@@ -20,12 +20,13 @@ const login = async (credentials) => {
 const register = async (credentials) => {
   console.log("Registering to " + baseUrl + " with " + credentials.email);
   const response = await axios.post(baseUrl + "register", credentials);
-  return response.data;
+  return response;
 };
 
 //To check if logged in
 const checkAuthentication = async (credentials) => {
   const response = await axios.get(baseUrl + "test", credentials);
+  console.log("in us",response)
   return response;
 };
 
