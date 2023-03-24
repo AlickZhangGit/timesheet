@@ -57,9 +57,20 @@ export class DataAPI {
 
   async postTimesData(req: Request, res: Response) {
     try {
-      const timesJson = req.body;
+      console.log('I have recieved values, ', req.body)
+      console.log(req.session.email) //this can be undefined if the server restarts 
+      //and a cookie from a previous server restart was in effect, relogin required
+      const email = req.session.email; //!!!
+      const body = req.body
+      const timesJson = body.map((el)=>{
+        return {email: email, ...el}
+      });
+      
+      
+      console.log("timesJson ", timesJson)
       const values = await jsonToList(timesJson);
       const sql = `INSERT INTO timesheet.times (email, year, month, day, hours) VALUES ${values}`;
+
 
       res.statusCode = 201;
       res.send({
