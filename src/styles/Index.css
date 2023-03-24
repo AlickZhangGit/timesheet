@@ -6,11 +6,6 @@
   color-scheme: light dark;
   color: rgba(0, 0, 0, 0.87);
 
-  /*background-image: url('../../public/rose-petals.svg');*/
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;

@@ -21,7 +21,6 @@ function App() {
     backgroundImage: `url(${rose})`,
     height: "100vh",
     backgroundSize: "cover",
-    backgroundRepeat: "no-repeat",
     backgroundPosition: "center center",
   };
 
