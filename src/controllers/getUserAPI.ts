@@ -83,7 +83,7 @@ export class UserAPI {
             // check if user already exists
             const exists = await dbConnect.pool.query($sql.queries.userExists, [email])
             if(exists.rows[0].count > 0){
-                throw "Email already exists."
+                throw "Email already exists"
             }        
 
             // add into db
@@ -108,12 +108,13 @@ export class UserAPI {
             });
 
         } catch(err){
-            if (String(err).includes('Email already exists.')){
-                resError(res, err, 400);
-            }else{
-                console.log(err)
-                resError(res, err);
-            }
+            switch(String(err)) {
+                case 'Email already exists':
+                    resError(res, err, 400);
+                    break
+                default:
+                    resError(res, err);
+              }
         }
 
     }
@@ -129,7 +130,7 @@ export class UserAPI {
             // check if user already exists
             const exists = await dbConnect.pool.query($sql.queries.userExists, [email])
             if(exists.rows[0].count == 0){
-                throw "Email does not exists."
+                throw "Email does not exists"
             }
 
             // get account info and compare hashed pass
@@ -153,15 +154,17 @@ export class UserAPI {
                 accessToken: token
             });
 
-            
         } catch(err){
-            if (String(err).includes('Incorrect password')){
-                resError(res, err, 403);
-            }else{
-                console.log(err)
-                resError(res, err);
-            }
-            
+            switch(String(err)) {
+                case 'Incorrect password':
+                    resError(res, err, 403);
+                    break
+                case 'Email does not exists':
+                    resError(res, err, 404);
+                    break
+                default:
+                    resError(res, err);
+              }
         }
     }
 

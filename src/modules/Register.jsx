@@ -1,10 +1,17 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/Login.css";
+import { Link } from "react-router-dom";
+import userService from "../services/userService";
 
-export default function Register({ registerHandler }) {
+export default function Register() {
   const [email, setEmail] = useState("example@example.com");
   const [password, setPassword] = useState("example1");
   const [confirmPassword, setConfirmPassword] = useState("example1");
+  const [errmessage, setErrMessage] = useState("");
+
+  const navigate = useNavigate();
+  const registerHandler = async (credentials) => {};
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -18,10 +25,20 @@ export default function Register({ registerHandler }) {
     setConfirmPassword(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    registerHandler({ email, password });
+    if (password != confirmPassword) {
+      setErrMessage("Confirm password not equal to password");
+    } else {
+      const response = await userService.register({ email, password });
+      if (response.status != 200) {
+        console.log(response);
+        setErrMessage(response.data.Error);
+      } else if (response.status === 201) {
+        navigate("/calendar");
+      }
+    }
   };
 
   return (
@@ -29,6 +46,11 @@ export default function Register({ registerHandler }) {
       <div className="title">Register</div>
       <form onSubmit={handleSubmit}>
         <div className="smalldiv">
+          {errmessage === "" ? (
+            ""
+          ) : (
+            <div className="errorMsg">{errmessage}</div>
+          )}
           <label>Email: </label>
           <input
             type="text"
@@ -57,6 +79,8 @@ export default function Register({ registerHandler }) {
         </div>
         <button>Submit</button>
       </form>
+      <br />
+      <Link to="/login">Go Back To Login</Link>
     </div>
   );
 }

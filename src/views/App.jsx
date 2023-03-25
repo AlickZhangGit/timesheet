@@ -8,9 +8,13 @@ import RedirectToAppropriate from "../modules/Redirect";
 import rose from "../assets/rose-petals.svg";
 
 function App() {
-  const registerHandler = async (credentials) => {
-    userService.register(credentials);
-  };
+  // const navigate = ();
+  // const registerHandler = async (credentials) => {
+  //   response = await userService.register(credentials);
+  //   if (response.status === 201) {
+  //     navigate("/calendar");
+  //   }
+  // };
 
   const loginHandler = async (credentials) => {
     const result = await userService.login(credentials);
@@ -28,15 +32,20 @@ function App() {
     <div className="App" style={backgroundStyle}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<RedirectToAppropriate />} />
+          <Route
+            path="/"
+            element={
+              <RedirectToAppropriate
+                pageAuthorized="/calendar"
+                pageError="/login"
+              />
+            }
+          />
           <Route
             path="/login"
             element={<Login loginHandler={loginHandler} />}
           />
-          <Route
-            path="/register"
-            element={<Register registerHandler={registerHandler} />}
-          />
+          <Route path="/register" element={<Register />} />
           <Route path="/calendar" element={<Calendar />} />
         </Routes>
       </BrowserRouter>

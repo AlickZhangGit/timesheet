@@ -8,6 +8,7 @@ export default function Login(props) {
   const [email, setEmail] = useState("example@example.com");
   const [password, setPassword] = useState("example1");
   const navigate = useNavigate();
+  const [errmessage, setErrMessage] = useState("");
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -19,16 +20,13 @@ export default function Login(props) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    try {
-      const response = await userService.login({ email, password });
-      if (response.status === 200) {
-        const data = response.data; //i guess ill do something with this
-        navigate("/calendar");
-      } else {
-        throw new Error("Failed to login");
-      }
-    } catch (error) {
-      console.log(error);
+
+    const response = await userService.login({ email, password });
+    if (response.status != 200) {
+      console.log(response);
+      setErrMessage(response.data.Error);
+    } else if (response.status === 200) {
+      navigate("/calendar");
     }
   };
 
@@ -37,6 +35,11 @@ export default function Login(props) {
       <div className="title">Login</div>
       <form onSubmit={handleSubmit}>
         <div className="smalldiv">
+          {errmessage === "" ? (
+            ""
+          ) : (
+            <div className="errorMsg">{errmessage}</div>
+          )}
           <label>Email</label>
           <input
             type="text"
@@ -56,7 +59,7 @@ export default function Login(props) {
         </div>
         <button>Login</button>
       </form>
-
+      <br />
       <Link to="/register">Register</Link>
     </div>
   );

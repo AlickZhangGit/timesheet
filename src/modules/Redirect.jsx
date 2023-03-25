@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import userService from "../services/userService";
 
-export default function RedirectToAppropriate() {
+export default function RedirectToAppropriate({ pageAuthorized, pageError }) {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -10,9 +10,9 @@ export default function RedirectToAppropriate() {
       try {
         const response = await userService.checkAuthentication();
         if (response.status === 200) {
-          navigate("/calendar");
+          navigate(pageAuthorized);
         } else {
-          navigate("/login");
+          navigate(pageError);
         }
       } catch (error) {
         console.error("Error fetching status:", error);
