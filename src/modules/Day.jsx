@@ -1,6 +1,14 @@
 import "../styles/Day.css";
 
 export default function Day(props) {
+  /*props.dayObj looks like
+  {
+    date: date    //always
+    hours: string //(if any), can be empty string..?
+    selectable: bool
+    selected: bool
+  }
+  */
   //takes a number as a prop
   //console.log(props["data-key"]);
 
@@ -14,34 +22,8 @@ export default function Day(props) {
         display: "inline-block",
       }}
     >
-      {props.date.getDate()}
-      <div>{getHours(props.date, props.userData)}hrs</div>
+      {props.dayObj.date.getDate()}
+      <div>{props.dayObj.hours ? props.dayObj.hours : ""}</div>
     </div>
   );
-}
-
-//props.userData is an array of..
-function getHours(day, userData) {
-  console.log("DA: ", day.toString());
-  console.log("UD: ", userData);
-  const match = userData.find((element) => {
-    return (
-      element.date.getDate() === day.getDate() &&
-      element.date.getMonth() === day.getMonth() &&
-      element.date.getFullYear() === day.getFullYear()
-    );
-    //console.log("||||||||||");
-    //console.log("UD: ", element.date.toString());
-    //console.log("DA: ", day.toString());
-    //console.log(day.getTime() - element.date.getTime());
-    //console.log("||||||||||");
-    return element.date === day;
-  });
-  if (match) {
-    console.log("match found", match);
-    return match.hours;
-  } else {
-    console.log("match not found");
-  }
-  //console.log("match hours", match.hours);
 }

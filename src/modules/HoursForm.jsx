@@ -2,13 +2,9 @@ import { useState } from "react";
 import userService from "../services/userService";
 import "../styles/HoursForm.css";
 
-export default function HoursForm({ selectedDays, closeModal }) {
+export default function HoursForm({ selectedDays, closeModal, updateDaysArr }) {
   //Takes an array of days (just ids of dates, they need to be cast as Dates)
-
-  const [userData, setUserData] = useState();
-  //Userdata is an array of days... {}
-
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const arr = [];
     const els = event.target;
@@ -21,13 +17,9 @@ export default function HoursForm({ selectedDays, closeModal }) {
       "You submitted your hours! the array of dates and hours looks like"
     );
     console.table(arr);
-    userService.postUserData(arr);
+    await userService.postUserData(arr);
+    await updateDaysArr();
     closeModal();
-  };
-
-  const runGetData = () => {
-    const date = new Date();
-    userService.getDataForMonth(date);
   };
 
   return (
@@ -42,7 +34,6 @@ export default function HoursForm({ selectedDays, closeModal }) {
         <br />
         <input className="submitButton" type="submit" value="Submit" />
       </form>
-      <button onClick={runGetData}>TEST</button>
     </div>
   );
 }
