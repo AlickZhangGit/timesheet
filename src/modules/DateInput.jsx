@@ -6,7 +6,9 @@ export default function DateInput(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    props.setDateHandler(year, month);
+    const yr = event.target[1].value;
+    const mo = event.target[0].value;
+    props.setDateHandler(yr, mo);
     props.toggle();
   };
 
