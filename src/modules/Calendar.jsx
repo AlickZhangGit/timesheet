@@ -20,6 +20,11 @@ function initializeDaysArr() {
   return daysHelper(initDate);
 }
 
+async function initializeUserData() {
+  const initDate = new Date();
+  return await userService.getDataForMonth(initDate);
+}
+
 function daysHelper(date) {
   //Given a Date object, create and return an array of the calendar (dates)
   //that would display the 42 days
@@ -54,6 +59,8 @@ export default function Calendar(props) {
   //Hours data is an array of objects that look like...
   //{day: example-3/21/23}
 
+  const [userData, setUserData] = useState([]); //initializeUserData()
+
   const navigate = useNavigate();
   const checkAuth = async (credentials) => {
     try {
@@ -66,8 +73,9 @@ export default function Calendar(props) {
     }
   };
 
-  useEffect(() => {
+  useEffect(async () => {
     checkAuth();
+    setUserData(await initializeUserData());
   }, []);
 
   const toggle = () => {
@@ -102,14 +110,21 @@ export default function Calendar(props) {
     });
   };
 
-  const monthNav = (int) => {
+  const monthNav = async (int) => {
     const newmonth = Number(calDate.getMonth()) + int;
+    //Get userdata...
+    setUserData(
+      await userService.getDataForMonth(
+        new Date(calDate.getFullYear(), newmonth, 1)
+      )
+    );
     setCalDate(new Date(calDate.getFullYear(), newmonth, 1));
     setDaysArr(daysHelper(new Date(calDate.getFullYear(), newmonth, 1)));
   };
 
-  const setDateHandler = (year, month) => {
+  const setDateHandler = async (year, month) => {
     const newDate = new Date(year, month, 1);
+    setUserData(await userService.getDataForMonth(newDate)); //userService.getDataForMonth(initDate)
     setCalDate(newDate);
     setDaysArr(daysHelper(newDate));
   };
@@ -119,7 +134,7 @@ export default function Calendar(props) {
     setIsOpen(true);
   };
 
-  const div1Style = { color: "red" };
+  console.log("Pringint userdata", userData);
 
   return (
     <div id="calendarWrapper">
@@ -184,14 +199,11 @@ export default function Calendar(props) {
             {daysArr.map((day) => {
               return (
                 <Day
-                  className={
-                    selected.has(day.getTime())
-                      ? "selected selectable"
-                      : "selectable"
-                  }
+                  className={dayClassNames(day, selected, calDate)}
                   date={day}
                   key={day.getTime()}
                   data-key={day.getTime()}
+                  userData={userData}
                 />
               );
             })}
@@ -214,4 +226,25 @@ export default function Calendar(props) {
       </div>
     </div>
   );
+}
+
+function dayClassNames(day, selected, calDate) {
+  //selected, selectable, in month range
+  //unselectable, out of month range
+  const className = "";
+  //Switch this block with the one below it depending on shader preference
+  const today = new Date();
+  if (day > today) {
+    return "future";
+  }
+  //Switch with above
+  if (day.getMonth() !== calDate.getMonth()) {
+    return "unselectable";
+  }
+  //-------------
+  if (selected.has(day.getTime())) {
+    return "selected selectable";
+  } else {
+    return "selectable";
+  }
 }

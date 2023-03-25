@@ -1,7 +1,14 @@
-.day{
-    width:60px;
-    height: 80px;
-    border-style: solid;
-    border-color: rgb(26, 82, 60);
-    margin: 5px;
+.day {
+  width: 60px;
+  height: 80px;
+  border-style: solid;
+  border-color: rgb(26, 82, 60);
+  margin: 5px;
+}
+.unselectable {
+  background-color: rgb(41, 41, 41);
+}
+
+.future {
+  background-color: rgb(20, 20, 20);
 }
