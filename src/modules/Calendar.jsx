@@ -57,13 +57,10 @@ export default function Calendar(props) {
   const navigate = useNavigate();
   const checkAuth = async (credentials) => {
     try {
-      console.log("asdf");
       const response = await userService.checkAuthentication(credentials);
-      console.log("asdf2");
-      // console.log(response.status);
-      // if (response.status != 200) {
-      //   navigate("/login");
-      // }
+      if (response.status != 200) {
+        navigate("/login");
+      }
     } catch (err) {
       console.log(err);
     }

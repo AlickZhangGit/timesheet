@@ -26,9 +26,14 @@ const register = async (credentials) => {
 //To check if logged in
 const checkAuthentication = async (credentials) => {
   console.log("Verifying authentication at /test");
-  const response = await axios.get(baseUrl + "test", credentials);
-  console.log("in us",response)
-  return response;
+  try{
+    const response = await axios.get(baseUrl + "test", credentials);
+    return response;
+  }
+  catch(err){
+    return err.response;
+  }
+  
 };
 
 //Post array of userData, conversion happens here
