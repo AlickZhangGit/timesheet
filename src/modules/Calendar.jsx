@@ -62,7 +62,7 @@ export default function Calendar(props) {
         navigate("/login");
       }
     } catch (err) {
-      console.log(err);
+      console.log("calendar checkauth err", err);
     }
   };
 

@@ -8,19 +8,21 @@ const login = async (credentials) => {
   console.log("Logging in to " + baseUrl + " with " + credentials.email);
   try {
     const response = await axios.post(baseUrl + "login", credentials);
-    console.log(response);
     return response;
   } catch (error) {
-    console.log("Login error in userservice");
-    return error;
+    return error.response;
   }
 };
 
 //Register with email and password
 const register = async (credentials) => {
   console.log("Registering to " + baseUrl + " with " + credentials.email);
-  const response = await axios.post(baseUrl + "register", credentials);
-  return response;
+  try {
+    const response = await axios.post(baseUrl + "register", credentials);
+    return response;
+  } catch (error) {
+    return error.response;
+  }
 };
 
 //To check if logged in

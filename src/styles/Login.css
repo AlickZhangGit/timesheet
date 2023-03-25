@@ -2,18 +2,18 @@
   width: 550px;
   border-style: solid;
   border-color: rgb(34, 102, 141);
-  color: rgb((255,255,255));
+  color: rgb((255, 255, 255));
 }
 
-.title{
-  margin-bottom:30px;
+.title {
+  margin-bottom: 30px;
   font-weight: bold;
   font-size: 25px;
 }
 
-.box{
+.box {
   background: rgb(245, 245, 220);
-	border-radius: 25px;
+  border-radius: 25px;
   padding-top: 40px;
   padding-right: 30px;
   padding-bottom: 40px;
@@ -32,12 +32,17 @@ label {
   font-weight: bold;
 }
 
-.smalldiv{
+.smalldiv {
   padding-top: 5px;
   padding-bottom: 5px;
-  display:block;
+  display: block;
+}
+
+.errorMsg {
+  color: red;
+  font-size: 12px;
 }
 
 button {
-  margin-top:30px;
+  margin-top: 30px;
 }
