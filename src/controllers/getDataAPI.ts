@@ -29,6 +29,7 @@ function jsonToList(jsonData) {
     try {
       const rows: timesData[] = jsonData;
       const values = rows
+        .filter(row => row.email && row.year && row.month && row.day && row.hours)
         .map(
           (row) =>
             `('${row.email}', '${row.year}', '${row.month}', '${row.day}', '${row.hours}')`
