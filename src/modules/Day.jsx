@@ -22,8 +22,7 @@ export default function Day(props) {
     const stringed = String(hours);
     if (hours == null) setHoursData("");
     else if (stringed.length > 6) setHoursData("...");
-    else if (stringed.length > 0) setHoursData(stringed);
-    else setHoursData("");
+    else setHoursData(stringed);
   }
 
   useEffect(() => {
