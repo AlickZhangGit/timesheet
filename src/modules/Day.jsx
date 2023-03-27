@@ -21,7 +21,7 @@ export default function Day(props) {
   function dotdotdot(hours) {
     const stringed = String(hours);
     if (hours == null) setHoursData("");
-    else if (stringed.length > 4) setHoursData("...");
+    else if (stringed.length > 6) setHoursData("...");
     else if (stringed.length > 0) setHoursData(stringed);
     else setHoursData("");
   }
