@@ -7,6 +7,8 @@ export default function Day(props) {
   const closeModal = () => setIsOpen(false);
   const [modalPosition, setModalPosition] = useState({ x: 0, y: 0 });
 
+  const [hourData, setHoursData] = useState("");
+
   function handleCellDoubleClick(event) {
     const { target } = event;
     const { offsetTop, offsetLeft } = target;
@@ -15,6 +17,18 @@ export default function Day(props) {
     setModalPosition({ x, y });
     setIsOpen(true);
   }
+
+  function dotdotdot(hours) {
+    const stringed = String(hours);
+    if (hours == null) setHoursData("");
+    else if (stringed.length > 4) setHoursData("...");
+    else if (stringed.length > 0) setHoursData(stringed);
+    else setHoursData("");
+  }
+
+  useEffect(() => {
+    dotdotdot(props.dayObj.hours);
+  }, [props.dayObj.hours]);
 
   return (
     <div
@@ -29,7 +43,7 @@ export default function Day(props) {
       {props.dayObj.date.getDate()}
 
       <div>
-        {props.dayObj.hours ? props.dayObj.hours : ""}
+        {hourData}
         <Modal
           isOpen={modalIsOpen}
           contentLabel="Example Modal"
