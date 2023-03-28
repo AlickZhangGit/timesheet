@@ -6,18 +6,21 @@ This project is a collaborative work of [Alick Zhang](https://github.com/AlickZh
 
 - Login and register account
 - Enter and retrieve timesheet data
+- Select multiple days on the calendar with drag select
 
 ### Front-end Tech Stack
 
+- React
 - HTML
 - CSS
-- Express.js
+- @viselect/react
 
 ### Back-end Tech Stack
 
 - AWS EC2 Ubuntu server
 - AWS RDS PostgreSQL database
 - Node.js
+- Express.js
 - Typescript
 
 ### Links
