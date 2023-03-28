@@ -22,14 +22,14 @@ export default function DateInput(props) {
   };
 
   return (
-    <form id="dateInput" className="darkerBlue" onSubmit={handleSubmit}>
+    <form id="dateInput" className="white" onSubmit={handleSubmit}>
       <label htmlFor="month">
         <select
           id="monthSelector"
           name="monthSelector"
           value={props.date.getMonth()}
           onChange={changeMonthHandler}
-          className="darkBlue"
+          className="gray"
         >
           <option value="0">January</option>
           <option value="1">February</option>
@@ -51,12 +51,12 @@ export default function DateInput(props) {
           name="yearSelector"
           value={props.date.getFullYear()}
           onChange={changeYearHandler}
-          className="darkBlue"
+          className="gray"
         >
           {yearList(new Date().getFullYear())}
         </select>
       </label>
-      <input type="submit" id="rocket" className="darkBlue" value="🚀" />
+      <input type="submit" id="rocket" value="🚀" />
     </form>
   );
 }

@@ -41,6 +41,16 @@
   background-color: rgba(255, 255, 255, 0.897);
 }
 
+.white {
+  background-color: white;
+  color: black;
+}
+
+.gray {
+  background-color: rgb(231, 231, 231);
+  color: black;
+}
+
 /*|| TEXT COLORS */
 
 .redError {

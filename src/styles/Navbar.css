@@ -1,6 +1,6 @@
 .navbar {
   overflow: hidden;
-  background-color: #ffffff;
+  background-color: aliceblue;
   font-family: Calibri;
   position: fixed;
   top: 0;
@@ -9,7 +9,8 @@
   width: 90%;
   padding: 0px;
   scroll-behavior: smooth;
-  border-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 .navbar a:hover {
@@ -24,7 +25,7 @@
 
 .topnav-left-active {
   float: left;
-  background-color: #1258b4;
+  background-color: #292929;
   color: white;
   padding: 7px;
   text-decoration: none;

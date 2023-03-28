@@ -180,7 +180,7 @@ export default function Calendar(props) {
             }}
             className="calButton"
           >
-            {"↤"}
+            {"⇐"}
           </button>
           {dateinputVisiblity ? (
             <DateInput
@@ -202,7 +202,7 @@ export default function Calendar(props) {
             }}
             className="calButton"
           >
-            {"↦"}
+            {"⇒"}
           </button>
         </div>
         <div className="weekDays">
