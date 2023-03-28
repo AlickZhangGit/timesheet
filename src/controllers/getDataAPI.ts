@@ -68,33 +68,31 @@ export class DataAPI {
 
   async postTimesData(req: Request, res: Response) {
     const token = req.cookies?.access_token;
-
     try {
         const decoded = await getDecodedAccessToken(token)
         const email = decoded.id
         const body = req.body
         const timesJson = body.map((el)=>{
-        return {email: email, ...el}
-      });
+          return {email: email, ...el}
+        });
       
-      
-      console.log("timesJson ", timesJson)
-      const values = await jsonToList(timesJson);
-      const sql = `INSERT INTO timesheet.times (email, year, month, day, hours) VALUES ${values}`;
-      await dbConnect.pool.query(sql)
-
-      res.statusCode = 201;
-      res.send({
-        message: "success",
-      });
+        const values = await jsonToList(timesJson);
+        const sql = `INSERT INTO timesheet.times (email, year, month, day, hours) VALUES ${values} ON CONFLICT (email, year, month, day) DO UPDATE SET hours = excluded.hours;`;
+        await dbConnect.pool.query(sql)
+        res.statusCode = 201;
+        res.send({
+          message: "success",
+        });
     } catch (err) {
-
+      console.log(err)
       resError(res, err);
     }
   }
 
   async getTimesByMonth(req: Request, res: Response) {
-    const token = req.cookies?.access_token;
+    // const token = req.cookies?.access_token;
+    // Uncomment hardcode below 
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImV4YW1wbGVAZXhhbXBsZS5jb20iLCJpYXQiOjE2Nzk3MDYyNzEsImV4cCI6MTc2NjEwNjI3MX0.tMCgARoNUkGG6kPDnHGMWd6yiQMbPk0hJUFy7iNLf0k'
     const decoded = await getDecodedAccessToken(token) 
     try {
         const email = decoded.id

@@ -31,3 +31,7 @@
 .future {
   background-color: rgb(155, 155, 155);
 }
+
+.ReactModalPortal {
+  position: relative;
+}
