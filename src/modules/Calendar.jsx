@@ -6,6 +6,7 @@ import SelectionArea from "@viselect/react";
 import Day from "./Day";
 import DateInput from "./DateInput";
 import HoursForm from "./HoursForm";
+import Navbar from "./Navbar";
 import "../styles/Calendar.css";
 
 async function daysHelper(calDate) {
@@ -20,7 +21,11 @@ async function daysHelper(calDate) {
   let dayIndex = new Date(calDate);
   const arr = [];
   const today = new Date();
-  const userData = await userService.getDataForMonth(calDate);
+  let userData = [];
+  try {
+    userData = await userService.getDataForMonth(calDate);
+  } catch (error) {}
+  //const userData = await userService.getDataForMonth(calDate);
   //back up to the nearest sunday
   while (dayIndex.getDay() !== 0) {
     dayIndex.setDate(dayIndex.getDate() - 1);
@@ -102,7 +107,7 @@ export default function Calendar(props) {
     try {
       const response = await userService.checkAuthentication(credentials);
       if (response.status != 200) {
-        navigate("/login"); //Comment to test in vite
+        //navigate("/login"); //Comment to test in vite
       }
     } catch (err) {
       console.log("calendar checkauth err", err);
@@ -165,77 +170,71 @@ export default function Calendar(props) {
   };
 
   return (
-    <div id="calendarWrapper">
-      <div className="navbar">
-        <div className="topnav-left-active">
-          <a href="/calendar">Calendar</a>
-        </div>
-        <div className="topnav-left">
-          <a href="/calendar">Other1</a>
-        </div>
-        <div className="topnav-left">
-          <a href="/calendar">Other2</a>
-        </div>
-        <div className="topnav-right">
-          <a href="/api/v1/logout">Logout</a>
-        </div>
-      </div>
-
-      <div className="calendarMain">
-        <div className="calendar">
-          <div className="calendarNavigator">
-            <div className="calendarNav">
-              <button
-                onClick={() => {
-                  monthNav(-1);
-                }}
-              >
-                {"<"}
-              </button>
-              <div id="dateSelection">
-                {dateinputVisiblity ? (
-                  <DateInput
-                    date={calDate}
-                    setDateHandler={setDateHandler}
-                    toggle={toggle}
-                  />
-                ) : (
-                  <button id="monthName" onClick={toggle}>
-                    {new Intl.DateTimeFormat("en-US", {
-                      year: "numeric",
-                      month: "long",
-                    }).format(calDate)}
-                  </button>
-                )}
-              </div>
-              <button
-                style={{ float: "right" }}
-                onClick={() => {
-                  monthNav(1);
-                }}
-              >
-                {">"}
-              </button>
-            </div>
-          </div>
-          <SelectionArea
-            className="container1"
-            onStart={onStart}
-            onMove={onMove}
-            selectables=".selectable"
+    <div id="calendarPage">
+      <Navbar />
+      <div className="calendar shadowed">
+        <div className="calendarTop">
+          <button
+            onClick={() => {
+              monthNav(-1);
+            }}
+            className="calButton"
           >
-            {daysArr.map((dayObj) => {
-              return (
-                <Day
-                  className={dayClassNames(dayObj, selected)}
-                  key={dayObj.date.getTime()}
-                  data-key={dayObj.date.getTime()}
-                  dayObj={dayObj}
-                />
-              );
-            })}
-          </SelectionArea>
+            {"↤"}
+          </button>
+          {dateinputVisiblity ? (
+            <DateInput
+              date={calDate}
+              setDateHandler={setDateHandler}
+              toggle={toggle}
+            />
+          ) : (
+            <button id="monthButton" className="calButton" onClick={toggle}>
+              {new Intl.DateTimeFormat("en-US", {
+                year: "numeric",
+                month: "long",
+              }).format(calDate)}
+            </button>
+          )}
+          <button
+            onClick={() => {
+              monthNav(1);
+            }}
+            className="calButton"
+          >
+            {"↦"}
+          </button>
         </div>
+        <div className="weekDays">
+          <div id="sunday" className="dayOfWeek">
+            Sunday
+          </div>
+          <div className="dayOfWeek">Monday</div>
+          <div className="dayOfWeek">Tuesday</div>
+          <div className="dayOfWeek">Wednesday</div>
+          <div className="dayOfWeek">Thursday</div>
+          <div className="dayOfWeek">Friday</div>
+          <div id="saturday" className="dayOfWeek">
+            Saturday
+          </div>
+        </div>
+        <SelectionArea
+          className="container1"
+          onStart={onStart}
+          onMove={onMove}
+          selectables=".selectable"
+        >
+          {daysArr.map((dayObj) => {
+            return (
+              <Day
+                className={dayClassNames(dayObj, selected)}
+                key={dayObj.date.getTime()}
+                data-key={dayObj.date.getTime()}
+                dayObj={dayObj}
+              />
+            );
+          })}
+        </SelectionArea>
       </div>
       <button onClick={updateHoursHandlerForm}>Enter Hours</button>
       <div>

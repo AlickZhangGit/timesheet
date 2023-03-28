@@ -42,45 +42,42 @@ export default function Register() {
   };
 
   return (
-    <div className="box">
-      <div className="title">Register</div>
+    <div className="wrapper centerChildren whiteGlass shadowed">
+      <h1 className="title">Register</h1>
       <form onSubmit={handleSubmit}>
-        <div className="smalldiv">
-          {errmessage === "" ? (
-            ""
-          ) : (
-            <div className="errorMsg">{errmessage}</div>
-          )}
+        <div className="credentials">
           <label>Email: </label>
           <input
             type="text"
             value={email}
             onChange={handleEmailChange}
             id="Email"
+            className="darkBlue credInput"
           />
-        </div>
-        <div className="smalldiv">
           <label>Password</label>
           <input
             type="password"
             value={password}
             onChange={handlePasswordChange}
             id="Password"
+            className="darkBlue credInput"
           />
-        </div>
-        <div className="smalldiv">
           <label>Confirm Password</label>
           <input
             type="password"
             value={confirmPassword}
             onChange={handleConfirmPasswordChange}
             id="ConfirmPassword"
+            className="darkBlue credInput"
           />
         </div>
-        <button>Submit</button>
+        {errmessage === "" ? "" : <div className="errorMsg">{errmessage}</div>}
+        <button className="darkerBlue">Register</button>
       </form>
       <br />
-      <Link to="/login">Go Back To Login</Link>
+      <Link to="/login" className="rlink">
+        Go Back To Login
+      </Link>
     </div>
   );
 }

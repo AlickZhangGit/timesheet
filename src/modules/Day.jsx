@@ -15,13 +15,7 @@ export default function Day(props) {
   //const getHours = () => {};
 
   return (
-    <div
-      className={props.className + " day"}
-      data-key={props["data-key"]}
-      style={{
-        display: "inline-block",
-      }}
-    >
+    <div className={props.className + " day"} data-key={props["data-key"]}>
       {props.dayObj.date.getDate()}
       <div>{props.dayObj.hours ? props.dayObj.hours : ""}</div>
     </div>

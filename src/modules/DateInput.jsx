@@ -22,51 +22,42 @@ export default function DateInput(props) {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div
-          style={{
-            display: "flex",
-            "align-items": "center",
-            "justify-content": "space-between",
-            width: "180px",
-          }}
+    <form id="dateInput" className="darkerBlue" onSubmit={handleSubmit}>
+      <label htmlFor="month">
+        <select
+          id="monthSelector"
+          name="monthSelector"
+          value={props.date.getMonth()}
+          onChange={changeMonthHandler}
+          className="darkBlue"
         >
-          <label htmlFor="month">
-            <select
-              id="monthSelector"
-              name="monthSelector"
-              value={props.date.getMonth()}
-              onChange={changeMonthHandler}
-            >
-              <option value="0">January</option>
-              <option value="1">February</option>
-              <option value="2">March</option>
-              <option value="3">April</option>
-              <option value="4">May</option>
-              <option value="5">June</option>
-              <option value="6">July</option>
-              <option value="7">August</option>
-              <option value="8">September</option>
-              <option value="9">October</option>
-              <option value="10">November</option>
-              <option value="11">December</option>
-            </select>
-          </label>
-          <label htmlFor="year">
-            <select
-              id="yearSelector"
-              name="yearSelector"
-              value={props.date.getFullYear()}
-              onChange={changeYearHandler}
-            >
-              {yearList(new Date().getFullYear())}
-            </select>
-          </label>
-        </div>
-        <input type="submit" value="Select" />
-      </form>
-    </div>
+          <option value="0">January</option>
+          <option value="1">February</option>
+          <option value="2">March</option>
+          <option value="3">April</option>
+          <option value="4">May</option>
+          <option value="5">June</option>
+          <option value="6">July</option>
+          <option value="7">August</option>
+          <option value="8">September</option>
+          <option value="9">October</option>
+          <option value="10">November</option>
+          <option value="11">December</option>
+        </select>
+      </label>
+      <label htmlFor="year">
+        <select
+          id="yearSelector"
+          name="yearSelector"
+          value={props.date.getFullYear()}
+          onChange={changeYearHandler}
+          className="darkBlue"
+        >
+          {yearList(new Date().getFullYear())}
+        </select>
+      </label>
+      <input type="submit" id="rocket" className="darkBlue" value="🚀" />
+    </form>
   );
 }
 
