@@ -7,9 +7,13 @@ export default function Day(props) {
   const closeModal = () => setIsOpen(false);
   const [modalPosition, setModalPosition] = useState({ x: 0, y: 0 });
 
-  const [hourData, setHoursData] = useState("");
+  const [hoursDetailed, setHoursDetailed] = useState(false);
+  const [hourData, setHoursData] = useState(false);
+  const [showHourDetails, setShowHourDetails] = useState(false);
 
   function handleCellDoubleClick(event) {
+    console.log("you clicked");
+    setShowHourDetails(!showHourDetails);
     const { target } = event;
     const { offsetTop, offsetLeft } = target;
     const x = offsetLeft + target.offsetWidth / 2;
@@ -36,46 +40,52 @@ export default function Day(props) {
       id={"modal-root" + props["data-key"]}
       onDoubleClick={handleCellDoubleClick}
     >
-      {props.dayObj.date.getDate()}
+      <div className="dayDate">{props.dayObj.date.getDate()}</div>
 
-      <div>
-        {hourData}
-        <Modal
-          isOpen={modalIsOpen}
-          contentLabel="Example Modal"
-          ariaHideApp={false}
-          onRequestClose={closeModal}
-          parentSelector={() =>
-            document.querySelector("#modal-root" + props["data-key"])
-          }
-          style={{
-            overlay: {
-              position: "fixed",
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              backgroundColor: "transparent",
-              zIndex: 9999,
-            },
-            content: {
-              position: "relative",
-              height: "150px",
-              width: "150px",
-              top: modalPosition.y - 250,
-              left: modalPosition.x - 95,
-              border: "1px solid #ccc",
-              borderRadius: "4px",
-              background: "#fff",
-              overflow: "auto",
-              padding: "20px",
-              zIndex: 10000,
-            },
-          }}
-        >
-          <div>{props.dayObj.hours ? props.dayObj.hours : ""}</div>
-        </Modal>
-      </div>
+      <div className="hoursText">{hourData}</div>
+      {hourData === "..." ? (
+        <div className="hoursDetails">{props.dayObj.hours}</div>
+      ) : (
+        ""
+      )}
     </div>
   );
 }
+
+const asdf = () => {
+  <Modal
+    isOpen={modalIsOpen}
+    contentLabel="Example Modal"
+    ariaHideApp={false}
+    onRequestClose={closeModal}
+    parentSelector={() =>
+      document.querySelector("#modal-root" + props["data-key"])
+    }
+    style={{
+      overlay: {
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: "transparent",
+        zIndex: 9999,
+      },
+      content: {
+        position: "relative",
+        height: "150px",
+        width: "150px",
+        top: modalPosition.y - 250,
+        left: modalPosition.x - 95,
+        border: "1px solid #ccc",
+        borderRadius: "4px",
+        background: "#fff",
+        overflow: "auto",
+        padding: "20px",
+        zIndex: 10000,
+      },
+    }}
+  >
+    <div>{props.dayObj.hours ? props.dayObj.hours : ""}</div>
+  </Modal>;
+};

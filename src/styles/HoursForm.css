@@ -1,5 +1,64 @@
+/*MODAL WINDOW*/
+.spreadWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.spreadWrapper h1 {
+  line-height: normal;
+  margin: 0px;
+}
+
+.closeButton {
+  background-color: black;
+  border-style: none;
+  border-radius: 4px;
+  height: 30px;
+  width: 30px;
+  align-self: start;
+}
+
+.Modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 300px;
+  max-height: 90vh;
+
+  border: 2px solid #ccc;
+  background: rgb(248, 252, 255);
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 10px;
+  outline: none;
+  padding: 20px;
+}
+
+.Overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  background-color: rgba(44, 44, 44, 0.548);
+}
+
+.divider {
+  width: 100%;
+  height: 2px;
+  background-color: rgba(97, 97, 97, 0.349);
+  margin-bottom: 10px;
+}
+
+/*HOURS FORM*/
 .hoursForm {
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   padding: 0;
   margin: 0;
   width: 100%;
@@ -8,14 +67,25 @@
 .formEntry {
   display: flex;
   flex-direction: column;
+
+  width: 100%;
   padding: 0px;
 }
 
-.formDate {
+.formEntryDate {
+  font-size: 18px;
   display: inline-flex;
-  font-size: 15px;
+  margin-bottom: 4px;
 }
 
-.submitButton {
-  position: "absolute";
+.formEntryInput {
+  background-color: rgb(46, 46, 46);
+  border-style: solid;
+  line-height: 1.5em;
+  margin-bottom: 10px;
+  width: 97%;
+}
+
+#hoursSubmit {
+  width: 45%;
 }

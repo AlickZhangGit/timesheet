@@ -160,7 +160,11 @@ export default function Calendar(props) {
     setDaysArr(await daysHelper(newDate));
   };
 
-  const updateHoursHandlerForm = () => {
+  const enterHoursHandler = () => {
+    if (selected.size === 0) {
+      return;
+    }
+
     setSelectedDays(Array.from(selected));
     setIsOpen(true);
   };
@@ -178,7 +182,7 @@ export default function Calendar(props) {
             onClick={() => {
               monthNav(-1);
             }}
-            className="calButton"
+            className="lrbutton"
           >
             {"⇐"}
           </button>
@@ -200,7 +204,7 @@ export default function Calendar(props) {
             onClick={() => {
               monthNav(1);
             }}
-            className="calButton"
+            className="lrbutton"
           >
             {"⇒"}
           </button>
@@ -236,24 +240,33 @@ export default function Calendar(props) {
           })}
         </SelectionArea>
       </div>
-      <button onClick={updateHoursHandlerForm}>Enter Hours</button>
-      <div>
-        <Modal
-          isOpen={modalIsOpen}
-          contentLabel="Example Modal"
-          ariaHideApp={false}
-          className="Modal"
-        >
+      <button
+        className={selected.size > 0 ? "darkButton" : "lightButton"}
+        onClick={enterHoursHandler}
+      >
+        Enter Hours
+      </button>
+
+      <Modal
+        isOpen={modalIsOpen}
+        contentLabel="Form Modal"
+        ariaHideApp={false}
+        className="Modal"
+        overlayClassName="Overlay"
+      >
+        <div className="spreadWrapper">
+          <h1>Enter Hours</h1>
           <button className="closeButton" onClick={closeModal}>
             X
           </button>
-          <HoursForm
-            selectedDays={selectedDays}
-            closeModal={closeModal}
-            updateDaysArr={updateDaysArr}
-          />
-        </Modal>
-      </div>
+        </div>
+        <div className="divider"></div>
+        <HoursForm
+          selectedDays={selectedDays}
+          closeModal={closeModal}
+          updateDaysArr={updateDaysArr}
+        />
+      </Modal>
     </div>
   );
 }
