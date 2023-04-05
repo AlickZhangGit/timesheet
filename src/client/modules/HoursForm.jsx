@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect, useState } from "react";
 import userService from "../services/userService";
 import "../styles/HoursForm.css";
@@ -7,7 +8,6 @@ function init(selectedDays) {
   for (let i = 0; i < selectedDays.length; i++) {
     obj[selectedDays[i]] = "";
   }
-  console.log(obj);
   return obj;
 }
 
@@ -46,13 +46,8 @@ export default function HoursForm({ selectedDays, closeModal, updateDaysArr }) {
 
   const handleGenericChange = (event) => {
     const value = event.target.value;
-    //console.log(allVals);
+    //If edit all is checked...
     if (linkAllInput) {
-      /*setAllVals(
-        Object.keys(allVals).forEach((key) => {
-          allVals;
-        })
-      );*/
       //Create a clone of the object:
       const copy = Object.assign({}, allVals);
 
@@ -63,6 +58,7 @@ export default function HoursForm({ selectedDays, closeModal, updateDaysArr }) {
       setAllVals(copy);
       return;
     }
+    //else just set the individual
     setAllVals({
       ...allVals,
       [event.target.name]: value,
@@ -111,7 +107,6 @@ function DayEntry({ day, handleGenericChange, allVals }) {
     month: "long",
     day: "numeric",
   };
-  //console.log("Im rerendering a day entry ", date);
 
   const handleChange = (event) => {
     if (linkAllInput) {
@@ -136,10 +131,3 @@ function DayEntry({ day, handleGenericChange, allVals }) {
     </label>
   );
 }
-
-/*
-linkedVal={linkedVal}
-            setLinkedVal={setLinkedVal}
-            linkAllInput={linkAllInput} 
-            linkedVal, setLinkedVal, linkAllInput
-            */

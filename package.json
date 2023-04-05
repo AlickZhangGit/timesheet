@@ -2,7 +2,7 @@
   "name": "timesheet",
   "version": "1.0.0",
   "description": "",
-  "main": "src/server.ts",
+  "main": "src/server/server.ts",
   "dependencies": {
     "@types/express-session": "^1.17.6",
     "@viselect/react": "^3.2.5",
@@ -37,9 +37,10 @@
     "vite": "^4.2.1"
   },
   "scripts": {
-    "dev": "concurrently \"vite\" \"nodemon ./src/server.ts\"",
-    "build": "tsc && vite build",
-    "server": "node ./build/server.js"
+    "dev": "concurrently \"vite\" \"nodemon ./src/server/server.ts\"",
+    "build": "tsc && vite build ./src/client",
+    "server": "node ./build/server.js",
+    "vite-build": "vite build ./src/client"
   },
   "keywords": [],
   "author": "",

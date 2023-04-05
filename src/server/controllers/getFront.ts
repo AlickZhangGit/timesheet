@@ -13,11 +13,10 @@ const resError = (res: any, err: any, statusCode=501) => {
 
 export class FrontRoute {
     getHome(req: Request, res: Response){
-        res.sendFile(path.join(__dirname, "../../dist/index.html"))
+        res.sendFile(path.join(__dirname, "../../../dist/index.html"))
     }
 
     assetsIndex(req: Request, res: Response){
-
-        res.sendFile(path.join(__dirname, "../../dist", req.path))
+        res.sendFile(path.join(__dirname, "../../../dist", req.path))
     }
 }

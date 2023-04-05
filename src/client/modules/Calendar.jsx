@@ -1,3 +1,4 @@
+import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import userService from "../services/userService";
@@ -97,7 +98,7 @@ export default function Calendar(props) {
     async function init() {
       checkAuth();
       //setUserData(await initializeUserData());
-      setDaysArr(await daysHelper(new Date(2023, 2, 1)));
+      setDaysArr(await daysHelper(new Date()));
     }
     init();
   }, []);

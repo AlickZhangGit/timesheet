@@ -1,10 +1,11 @@
+import React from "react";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import userService from "../services/userService";
-import Login from "../modules/Login";
-import Register from "../modules/Register";
-import Calendar from "../modules/Calendar";
+import Login from "./Login";
+import Register from "./Register";
+import Calendar from "./Calendar";
 import "../styles/App.css";
-import RedirectToAppropriate from "../modules/Redirect";
+import RedirectToAppropriate from "./Redirect";
 import rose from "../assets/rose-petals.svg";
 
 function App() {
