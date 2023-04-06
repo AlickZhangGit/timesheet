@@ -109,7 +109,7 @@ export default function Calendar(props) {
     try {
       const response = await userService.checkAuthentication(credentials);
       if (response.status != 200) {
-        //navigate("/login"); //Comment to test in vite
+        navigate("/login"); //Comment to test in vite
       }
     } catch (err) {
       console.log("calendar checkauth err", err);

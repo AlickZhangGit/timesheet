@@ -90,9 +90,7 @@ export class DataAPI {
   }
 
   async getTimesByMonth(req: Request, res: Response) {
-     const token = req.cookies?.access_token;
-    // Uncomment hardcode below 
-    //const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImV4YW1wbGVAZXhhbXBsZS5jb20iLCJpYXQiOjE2Nzk3MDYyNzEsImV4cCI6MTc2NjEwNjI3MX0.tMCgARoNUkGG6kPDnHGMWd6yiQMbPk0hJUFy7iNLf0k'
+    const token = req.cookies?.access_token;
     const decoded = await getDecodedAccessToken(token) 
     try {
         const email = decoded.id
