@@ -33,7 +33,7 @@ export default function Register() {
       setErrMessage("Confirm password not equal to password");
     } else {
       const response = await userService.register({ email, password });
-      if (response.status != 200) {
+      if (response.status != 201) {
         console.log(response);
         setErrMessage(response.data.Error);
       } else if (response.status === 201) {
