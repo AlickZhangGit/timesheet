@@ -27,7 +27,6 @@ async function daysHelper(calDate) {
   try {
     userData = await userService.getDataForMonth(calDate);
   } catch (error) {}
-  //const userData = await userService.getDataForMonth(calDate);
   //back up to the nearest sunday
   while (dayIndex.getDay() !== 0) {
     dayIndex.setDate(dayIndex.getDate() - 1);
@@ -93,12 +92,9 @@ export default function Calendar(props) {
   const closeModal = () => setIsOpen(false);
   const openModal = () => setIsOpen(true);
 
-  //const [userData, setUserData] = useState([]); //initializeUserData()
-
   useEffect(() => {
     async function init() {
       checkAuth();
-      //setUserData(await initializeUserData());
       setDaysArr(await daysHelper(new Date()));
     }
     init();

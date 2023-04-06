@@ -14,7 +14,6 @@ function init(selectedDays) {
 export default function HoursForm({ selectedDays, closeModal, updateDaysArr }) {
   const [errmessage, setErrMessage] = useState("");
   const [linkAllInput, setLinkAllInput] = useState(false);
-  const [linkedVal, setLinkedVal] = useState("");
   const [allVals, setAllVals] = useState(init(selectedDays));
   //Takes an array of days (just ids of dates, they need to be cast as Dates)
   const handleSubmit = async (event) => {
