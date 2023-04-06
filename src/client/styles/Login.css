@@ -48,6 +48,7 @@ label {
 }
 
 .credInput {
+  width: 93%;
   margin-top: 8px;
   margin-bottom: 10px;
   border-radius: 15px;
