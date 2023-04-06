@@ -29,7 +29,9 @@ function jsonToList(jsonData) {
     try {
       const rows: timesData[] = jsonData;
       const values = rows
-        .filter(row => row.email && row.year && row.month && row.day && row.hours)
+        .filter(
+          (row) => row.email && row.year && row.month && row.day && row.hours
+        )
         .map(
           (row) =>
             `('${row.email}', '${row.year}', '${row.month}', '${row.day}', '${row.hours}')`
@@ -43,14 +45,14 @@ function jsonToList(jsonData) {
 }
 
 function getDecodedAccessToken(token: string): any {
-    return new Promise((resolve, reject) => {
-        try {
-            resolve(jwt_decode(token));
-        } catch (err) {
-            reject(err);
-        }
-      });
-  }
+  return new Promise((resolve, reject) => {
+    try {
+      resolve(jwt_decode(token));
+    } catch (err) {
+      reject(err);
+    }
+  });
+}
 
 export class DataAPI {
   async getTest(req: Request, res: Response) {
@@ -69,35 +71,34 @@ export class DataAPI {
   async postTimesData(req: Request, res: Response) {
     const token = req.cookies?.access_token;
     try {
-        const decoded = await getDecodedAccessToken(token)
-        const email = decoded.id
-        const body = req.body
-        const timesJson = body.map((el)=>{
-          return {email: email, ...el}
-        });
-      
-        const values = await jsonToList(timesJson);
-        const sql = `INSERT INTO timesheet.times (email, year, month, day, hours) VALUES ${values} ON CONFLICT (email, year, month, day) DO UPDATE SET hours = excluded.hours;`;
-        await dbConnect.pool.query(sql)
-        res.statusCode = 201;
-        res.send({
-          message: "success",
-        });
+      const decoded = await getDecodedAccessToken(token);
+      const email = decoded.id;
+      const body = req.body;
+      const timesJson = body.map((el) => {
+        return { email: email, ...el };
+      });
+
+      const values = await jsonToList(timesJson);
+      const sql = `INSERT INTO timesheet.times (email, year, month, day, hours) VALUES ${values} ON CONFLICT (email, year, month, day) DO UPDATE SET hours = excluded.hours;`;
+      await dbConnect.pool.query(sql);
+      res.statusCode = 201;
+      res.send({
+        message: "success",
+      });
     } catch (err) {
-      console.log(err)
+      console.log(err);
       resError(res, err);
     }
   }
 
   async getTimesByMonth(req: Request, res: Response) {
     const token = req.cookies?.access_token;
-    const decoded = await getDecodedAccessToken(token) 
+    const decoded = await getDecodedAccessToken(token);
     try {
-        const email = decoded.id
-        const year = req.query.year;
-        const month = req.query.month;
-        console.log(`I received a request from ${email} to get data for the year ${year} and month ${month}`)
-        const times = await dbConnect.pool.query($sql.queries.getTimeByMonth, [
+      const email = decoded.id;
+      const year = req.query.year;
+      const month = req.query.month;
+      const times = await dbConnect.pool.query($sql.queries.getTimeByMonth, [
         email,
         year,
         month,
