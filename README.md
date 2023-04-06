@@ -28,3 +28,15 @@ This project is a collaborative work of [Alick Zhang](https://github.com/AlickZh
 - View it [here!](https://ec2-100-26-159-248.compute-1.amazonaws.com:6969/)
 
 ### Screenshots
+
+- Entering timesheet data
+
+![](./screenshots/screenshot1.png)
+
+- Drag to select multiple days
+
+![](./screenshots/screenshot2.png)
+
+- Hover to reveal notes
+
+![](./screenshots/screenshot3.png)
