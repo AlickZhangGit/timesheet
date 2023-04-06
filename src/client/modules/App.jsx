@@ -6,7 +6,7 @@ import Register from "./Register";
 import Calendar from "./Calendar";
 import "../styles/App.css";
 import RedirectToAppropriate from "./Redirect";
-import rose from "../assets/rose-petals.svg";
+import Footer from "./Footer";
 
 function App() {
   // const navigate = ();
@@ -55,6 +55,7 @@ function App() {
           <Route path="/calendar" element={<Calendar />} />
         </Routes>
       </BrowserRouter>
+      <Footer />
     </div>
   );
 }

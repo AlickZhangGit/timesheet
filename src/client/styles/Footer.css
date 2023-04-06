@@ -1,0 +1,19 @@
+.gitFooter {
+  position: fixed; /* Keep the footer fixed in place */
+  left: 0;
+  bottom: 0;
+  width: 100%; /* Set the width to 100% of the viewport */
+  height: 20px; /* Set a fixed height for the footer */
+
+  color: #fff; /* Set the text color to white */
+  padding: 20px; /* Add some padding to the footer content */
+
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 20px;
+}
+
+.gitFooter a {
+  color: #fff; /* Set the text color to white */
+}

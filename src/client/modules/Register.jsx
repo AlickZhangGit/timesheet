@@ -44,7 +44,7 @@ export default function Register() {
 
   return (
     <div className="wrapper centerChildren bgcolor3 shadowed textcolor1">
-      <h1 className="title">Register</h1>
+      <h1 className="pageName">Register</h1>
       <form onSubmit={handleSubmit}>
         <div className="credentials">
           <label>Email: </label>
