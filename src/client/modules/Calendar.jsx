@@ -20,6 +20,7 @@ async function daysHelper(calDate) {
   }*/
   //Build a new 42 days with userdata populated in it
   let dayIndex = new Date(calDate);
+  dayIndex.setDate(1);
   const arr = [];
   const today = new Date();
   let userData = [];
@@ -177,13 +178,13 @@ export default function Calendar(props) {
   return (
     <div id="calendarPage">
       <Navbar />
-      <div className="calendar shadowed">
+      <div className="calendar shadowed bgcolor3 textcolor1">
         <div className="calendarTop">
           <button
             onClick={() => {
               monthNav(-1);
             }}
-            className="lrbutton"
+            className="lrbutton bgcolor2"
           >
             {"⇐"}
           </button>
@@ -194,7 +195,11 @@ export default function Calendar(props) {
               toggle={toggle}
             />
           ) : (
-            <button id="monthButton" className="calButton" onClick={toggle}>
+            <button
+              id="monthButton"
+              className="calButton bgcolor2"
+              onClick={toggle}
+            >
               {new Intl.DateTimeFormat("en-US", {
                 year: "numeric",
                 month: "long",
@@ -205,26 +210,26 @@ export default function Calendar(props) {
             onClick={() => {
               monthNav(1);
             }}
-            className="lrbutton"
+            className="lrbutton bgcolor2"
           >
             {"⇒"}
           </button>
         </div>
         <div className="weekDays">
-          <div id="sunday" className="dayOfWeek">
+          <div id="sunday" className="dayOfWeek bgcolor1">
             Sunday
           </div>
-          <div className="dayOfWeek">Monday</div>
-          <div className="dayOfWeek">Tuesday</div>
-          <div className="dayOfWeek">Wednesday</div>
-          <div className="dayOfWeek">Thursday</div>
-          <div className="dayOfWeek">Friday</div>
-          <div id="saturday" className="dayOfWeek">
+          <div className="dayOfWeek bgcolor1">Monday</div>
+          <div className="dayOfWeek bgcolor1">Tuesday</div>
+          <div className="dayOfWeek bgcolor1">Wednesday</div>
+          <div className="dayOfWeek bgcolor1">Thursday</div>
+          <div className="dayOfWeek bgcolor1">Friday</div>
+          <div id="saturday" className="dayOfWeek bgcolor1">
             Saturday
           </div>
         </div>
         <SelectionArea
-          className="container1"
+          className="calContainer bgcolor1"
           onStart={onStart}
           onMove={onMove}
           selectables=".selectable"
@@ -242,7 +247,11 @@ export default function Calendar(props) {
         </SelectionArea>
       </div>
       <button
-        className={selected.size > 0 ? "darkButton" : "lightButton"}
+        className={
+          selected.size > 0
+            ? "onButton bgcolor3 textcolor1"
+            : "offButton bgcolor3 textcolor2"
+        }
         onClick={enterHoursHandler}
       >
         Enter Hours
@@ -252,12 +261,12 @@ export default function Calendar(props) {
         isOpen={modalIsOpen}
         contentLabel="Form Modal"
         ariaHideApp={false}
-        className="Modal"
+        className="Modal bgcolor3 textcolor1"
         overlayClassName="Overlay"
       >
         <div className="spreadWrapper">
           <h1>Enter Hours</h1>
-          <button className="closeButton" onClick={closeModal}>
+          <button className="closeButton bgcolor3" onClick={closeModal}>
             X
           </button>
         </div>
@@ -282,44 +291,16 @@ function dayClassNames(dayObj, selected) {
   //Switch this block with the one below it depending on shader preference
   const today = new Date();
   if (dayObj.date > today) {
-    return "future";
+    return "future bgcolor1";
   }
   //Switch with above
   if (dayObj.selectable === false) {
-    return "unselectable";
+    return "unselectable bgcolor1";
   }
   //-------------
   if (selected.has(dayObj.date.getTime())) {
     return "selected selectable";
   } else {
-    return "selectable";
+    return "selectable bgcolor3";
   }
 }
-
-/*
-async function initializeUserData() {
-  const initDate = new Date();
-  return await userService.getDataForMonth(initDate);
-}
-*/
-
-/*
-function daysHelper(date) {
-  //Given a Date object, create and return an array of the calendar (dates)
-  //that would display the 42 days
-  let dayIndex = new Date(date);
-  const arr = [];
-  //back up to the nearest sunday
-  while (dayIndex.getDay() !== 0) {
-    dayIndex.setDate(dayIndex.getDate() - 1);
-  }
-
-  for (let i = 0; i < 42; i++) {
-    const newDate = new Date(dayIndex);
-    arr.push(newDate);
-    dayIndex.setDate(dayIndex.getDate() + 1);
-  }
-
-  return arr;
-}
-*/

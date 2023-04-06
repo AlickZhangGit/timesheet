@@ -1,3 +1,4 @@
+import React from "react";
 import { useState } from "react";
 
 export default function DateInput(props) {
@@ -22,14 +23,14 @@ export default function DateInput(props) {
   };
 
   return (
-    <form id="dateInput" className="white" onSubmit={handleSubmit}>
+    <form id="dateInput" className="bgcolor2" onSubmit={handleSubmit}>
       <label htmlFor="month">
         <select
           id="monthSelector"
           name="monthSelector"
           value={props.date.getMonth()}
           onChange={changeMonthHandler}
-          className="gray"
+          className="bgcolor3 textcolor1"
         >
           <option value="0">January</option>
           <option value="1">February</option>
@@ -51,7 +52,7 @@ export default function DateInput(props) {
           name="yearSelector"
           value={props.date.getFullYear()}
           onChange={changeYearHandler}
-          className="gray"
+          className="bgcolor3 textcolor1"
         >
           {yearList(new Date().getFullYear())}
         </select>

@@ -43,7 +43,7 @@ export default function Register() {
   };
 
   return (
-    <div className="wrapper centerChildren whiteGlass shadowed">
+    <div className="wrapper centerChildren bgcolor3 shadowed textcolor1">
       <h1 className="title">Register</h1>
       <form onSubmit={handleSubmit}>
         <div className="credentials">
@@ -53,7 +53,7 @@ export default function Register() {
             value={email}
             onChange={handleEmailChange}
             id="Email"
-            className="darkBlue credInput"
+            className="bgcolor2 credInput"
           />
           <label>Password</label>
           <input
@@ -61,7 +61,7 @@ export default function Register() {
             value={password}
             onChange={handlePasswordChange}
             id="Password"
-            className="darkBlue credInput"
+            className="bgcolor2 credInput"
           />
           <label>Confirm Password</label>
           <input
@@ -69,11 +69,11 @@ export default function Register() {
             value={confirmPassword}
             onChange={handleConfirmPasswordChange}
             id="ConfirmPassword"
-            className="darkBlue credInput"
+            className="bgcolor2 credInput"
           />
         </div>
         {errmessage === "" ? "" : <div className="errorMsg">{errmessage}</div>}
-        <button className="darkerBlue">Register</button>
+        <button className="bgcolor2">Register</button>
       </form>
       <br />
       <Link to="/login" className="rlink">

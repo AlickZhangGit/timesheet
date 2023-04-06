@@ -28,6 +28,7 @@
   border-radius: 15px;
   border-width: 2px;
   padding: 20px;
+  margin-bottom: 10px;
 }
 
 /*uhhh this might not be good as a global selector*/
@@ -47,7 +48,7 @@ label {
 }
 
 .wrapper button {
-  margin-top: 20px;
+  margin-top: 10px;
   font-size: 16px;
   border-radius: 15px;
   border-style: none;
@@ -56,11 +57,12 @@ label {
 }
 
 .rlink {
+  font-family: Calibri;
   font-size: 15px;
-  color: rgb(71, 71, 71);
+  color: rgb(214, 214, 215);
 }
 
 .errorMsg {
-  color: rgb(158, 0, 0);
-  font-size: 16px;
+  color: rgb(226, 0, 0);
+  font-size: 18px;
 }

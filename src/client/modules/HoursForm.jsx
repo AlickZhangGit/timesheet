@@ -90,7 +90,7 @@ export default function HoursForm({ selectedDays, closeModal, updateDaysArr }) {
       {errmessage === "" ? "" : <div className="errorMsg">{errmessage}</div>}
       <input
         id="hoursSubmit"
-        className="darkButton"
+        className="bgcolor2 onButton"
         type="submit"
         value="Submit"
       />
@@ -121,7 +121,7 @@ function DayEntry({ day, handleGenericChange, allVals }) {
         {date.toLocaleDateString(undefined, options)}
       </div>
       <input
-        className="formEntryInput"
+        className="formEntryInput bgcolor2"
         type="text"
         name={day}
         value={allVals[day]}

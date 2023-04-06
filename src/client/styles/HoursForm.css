@@ -11,7 +11,6 @@
 }
 
 .closeButton {
-  background-color: black;
   border-style: none;
   border-radius: 4px;
   height: 30px;
@@ -27,8 +26,7 @@
   min-width: 300px;
   max-height: 90vh;
 
-  border: 2px solid #ccc;
-  background: rgb(248, 252, 255);
+  border: 1px solid #ccccccb2;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
   border-radius: 10px;
@@ -79,13 +77,16 @@
 }
 
 .formEntryInput {
-  background-color: rgb(46, 46, 46);
   border-style: solid;
-  line-height: 1.5em;
+  border-radius: 6px;
+  border-width: 1px;
+  border-color: rgba(102, 102, 102, 0.651);
+  line-height: 2em;
   margin-bottom: 10px;
   width: 97%;
 }
 
 #hoursSubmit {
+  margin-top: 10px;
   width: 45%;
 }

@@ -32,7 +32,7 @@ export default function Login(props) {
   };
 
   return (
-    <div className="wrapper centerChildren whiteGlass shadowed">
+    <div className="wrapper centerChildren bgcolor3 shadowed textcolor1">
       <h1 className="title">Login</h1>
       <form onSubmit={handleSubmit}>
         <div className="credentials">
@@ -42,7 +42,7 @@ export default function Login(props) {
             value={email}
             onChange={handleEmailChange}
             name="Email"
-            className="darkBlue credInput"
+            className="bgcolor2 credInput"
           />
           <label>Password</label>
           <input
@@ -50,11 +50,11 @@ export default function Login(props) {
             value={password}
             onChange={handlePasswordChange}
             name="Password"
-            className="darkBlue credInput"
+            className="bgcolor2 credInput"
           />
         </div>
         {errmessage === "" ? "" : <div className="errorMsg">{errmessage}</div>}
-        <button className="darkerBlue">Login</button>
+        <button className="bgcolor2">Login</button>
       </form>
       <br />
       <Link to="/register" className="rlink">
