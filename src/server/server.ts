@@ -16,8 +16,8 @@ declare module "express-session" {
 https
   .createServer(
     {
-      key: fs.readFileSync("key.pem"),
-      cert: fs.readFileSync("cert.pem"),
+      key: fs.readFileSync("certs/key.pem"),
+      cert: fs.readFileSync("certs/cert.pem"),
     },
     app
   )
