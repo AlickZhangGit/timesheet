@@ -25,7 +25,7 @@ This project is a collaborative work of [Alick Zhang](https://github.com/AlickZh
 
 ### Links
 
-- View it [here!](https://ec2-100-26-159-248.compute-1.amazonaws.com:6969/)
+- View it [here!](https://ec2-52-72-138-30.compute-1.amazonaws.com:6969/)
 
 ### Screenshots
 

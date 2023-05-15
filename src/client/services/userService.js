@@ -1,6 +1,6 @@
 import axios from "axios";
 const baseUrl =
-  "https://ec2-100-26-159-248.compute-1.amazonaws.com:6969/api/v1/";
+  "https://ec2-52-72-138-30.compute-1.amazonaws.com:6969/api/v1/";
   // "https://localhost:6969/api/v1/";
 
 //Login with email and password
